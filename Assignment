@@ -61,7 +61,7 @@ public class Assignment {
 		ListIterator<Assignment> h = needOncalls.listIterator(0);
 	    while(h.hasNext()) {
 	    	for(int i =0;i<5;i++) {
-	    		if(h.next().schedule[i] == "x") {
+	    		if(h.next().schedule[i] == "OC") {
 	    			ListIterator<Teacher> l = teacherRoster[i].listIterator(0);
 	    			while(l.hasNext()) {
 	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.next().getWeeklyOncalls()<weeklyMax)) {
