@@ -1,0 +1,41 @@
+public class Teacher {
+	private String name;
+	private String[] schedule = new String[5];
+	private int weeklyOncalls;
+	private int monthlyOncalls;
+	
+	public Teacher(String nameIn) {
+		name = nameIn;
+		weeklyOncalls = 0;
+		monthlyOncalls = 0;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String[] getSchedule() {
+		return schedule;
+	}
+	
+	public void setSchedule(String[] newSchedule) {
+		schedule = newSchedule;
+	}
+	
+	public void setWeeklyOncalls(int newWeeklyOncalls) {
+		weeklyOncalls = newWeeklyOncalls;
+	}
+	
+	public int getWeeklyOncalls() {
+		return weeklyOncalls;
+	}
+	
+	public void setMonthlyOncalls(int newMonthlyOncalls) {
+		monthlyOncalls = newMonthlyOncalls;
+	}
+	
+	public int getMonthlyOncalls() {
+		return monthlyOncalls;
+	}
+	
+}
