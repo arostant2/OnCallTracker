@@ -1,0 +1,79 @@
+import java.util.ArrayList;
+import java.util.ListIterator;
+
+public class Assignment {
+	private Teacher absentee;
+	private String sub;
+	private String[] schedule;
+	private static String[] substitutes = new String [5];
+	private static ArrayList<Assignment> assignments;
+	public Assignment(Teacher teacherIn, String subIn, String[] scheduleIn) {
+		setAbsentee(teacherIn);
+		setSub(subIn);
+		setSchedule(scheduleIn);
+	}
+	public Assignment(Teacher teacherIn, String[] scheduleIn) {
+		setAbsentee(teacherIn);
+		setSchedule(scheduleIn);
+	}
+	public String getSub() {
+		return sub;
+	}
+	public void setSub(String sub) {
+		this.sub = sub;
+	}
+	public Teacher getAbsentee() {
+		return absentee;
+	}
+	public void setAbsentee(Teacher absentee) {
+		this.absentee = absentee;
+	}
+	public String[] getSchedule() {
+		return schedule;
+	}
+	public void setSchedule(String[] schedule) {
+		this.schedule = schedule;
+	}
+	public void setSubstitutes(String[] subs) {
+		substitutes = subs;
+	}
+	public static void assignOncalls(ArrayList<Teacher>[] teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+			
+		for(int k = 0;k<5;k++) {
+		
+			ListIterator<Teacher> i = teacherRoster[k].listIterator(0);
+	    	
+	   	 	do {
+	   	 		ListIterator<Teacher> j = absentTeachers.listIterator(0);
+	   	 		do {
+	   	 			if(i.next().getName() == j.next().getName()) {
+	   	 				i.remove();
+	   	 				break;
+	   	 			}
+	   	 			else
+	   	 				j.next();
+	   	 		} while (j.hasNext());
+	   	 		i.next();
+	   	 	} while (i.hasNext());
+		}
+		
+		
+		ListIterator<Assignment> h = needOncalls.listIterator(0);
+	    while(h.hasNext()) {
+	    	for(int i =0;i<5;i++) {
+	    		if(h.next().schedule[i] == "x") {
+	    			ListIterator<Teacher> l = teacherRoster[i].listIterator(0);
+	    			while(l.hasNext()) {
+	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.next().getWeeklyOncalls()<weeklyMax)) {
+	    					substitutes[i] = l.next().getName();
+	    				}
+	    				l.next();
+	    			}
+	    		}
+	    	}
+	    	h.next().setSubstitutes(substitutes);
+	    	assignments.add(h.next());
+	    	h.next();
+	    }
+	}
+}
