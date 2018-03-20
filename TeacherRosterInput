@@ -1,0 +1,61 @@
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class TeacherRosterInput {
+	
+	private static String name;
+	private static String[] schedule = new String[5];
+	private static ArrayList<Teacher>[] teacherByPeriod;
+	private static int spare;
+	
+	public static ArrayList<Teacher>[] getTeacherByPeriod() {
+		return teacherByPeriod;
+	}
+
+	public static void RosterReader(String fileName) throws IOException, InvalidFormatException {
+
+	    Workbook workbook = WorkbookFactory.create(new File(fileName));
+	        
+	    Sheet sheet = workbook.getSheetAt(0);
+	       
+	    Iterator<Row> rowIterator = sheet.rowIterator();
+	    
+	    DataFormatter dataFormatter = new DataFormatter();
+	        
+	    while (rowIterator.hasNext()) {
+	    	
+	    	Row row = rowIterator.next();
+	    	
+	    	Iterator<Cell> cellIterator = row.cellIterator();
+	    	
+	    	Cell cell = cellIterator.next();
+	    	
+	    	name = dataFormatter.formatCellValue(cell);
+	    	
+	    	for(int i=0;i<5;i++) {
+			    	
+	    		cell = cellIterator.next();
+				    
+				  if (dataFormatter.formatCellValue(cell)== "Spare") {
+					  spare = i;
+	    	  }
+				  schedule[i] = dataFormatter.formatCellValue(cell);
+			  }
+			    
+	    	
+	        Teacher newTeacher = new Teacher(name);
+	        
+	        newTeacher.setSchedule(schedule);
+	        
+	        teacherByPeriod[spare].add(newTeacher);
+	     }
+	        
+	}
+	    
+}
+
+
