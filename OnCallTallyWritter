@@ -1,0 +1,66 @@
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.ArrayList;
+
+public class OnCallTallyWriter {
+	
+	private static String teacherName;
+	
+	public static void onCallTallyWriter(ArrayList<Teacher> onCallers, String fileName) throws InvalidFormatException, IOException {
+		
+		DataFormatter dataFormatter = new DataFormatter();
+		
+	    Workbook workbook = WorkbookFactory.create(new File(fileName));
+	    
+	    Sheet sheet = workbook.getSheetAt(0);
+	    
+	    Iterator<Row> rowIterator = sheet.rowIterator();
+
+	    Row row = sheet.getRow(1);
+	    
+	    Cell cell = row.getCell(30);
+
+	    int currentDate = Integer.parseInt(dataFormatter.formatCellValue(cell));
+	    
+	    cell.setCellValue(currentDate+1);
+	    
+	    while (rowIterator.hasNext()) {
+	    	
+	    	row = rowIterator.next();
+	    	
+	    	cell = row.getCell(1);
+	    	
+	    	teacherName = dataFormatter.formatCellValue(cell);
+	    	
+	    	ListIterator<Teacher> i = onCallers.listIterator(0);
+	    	
+	    	do {
+	    		if(i.next().getName() == teacherName) {
+	    			cell = row.getCell(currentDate);
+	    			cell.setCellValue(1);
+	    			cell = row.getCell(30);
+	    			int weeklyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
+	    			cell.setCellValue(weeklyOncalls);
+	    			cell = row.getCell(31);
+	    			int monthlyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
+	    			cell.setCellValue(monthlyOncalls);
+	    			break;
+	    		}
+	    		else
+	    			i.next();
+	    	} while (i.hasNext());
+	    }
+	    
+	    FileOutputStream fileOut = new FileOutputStream("existing-spreadsheet.xlsx");
+	    workbook.write(fileOut);
+	    fileOut.close();
+
+	    workbook.close();
+	}
+}
