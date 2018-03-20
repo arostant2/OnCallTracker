@@ -1,0 +1,80 @@
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class AbsenceInput {
+	
+	private static String subName;
+	private static String name;
+	private static ArrayList<Teacher> absentTeachers;
+	private static ArrayList<Assignment> ocAssignments;
+	private static ArrayList<Assignment> supplyAssignments;
+	private static String[] schedule = new String[5];
+	
+	public static ArrayList<Assignment> getOCAssignments() {
+		return ocAssignments;
+	}
+	public static ArrayList<Assignment> getsupplyAssignments() {
+		return supplyAssignments;
+	}
+	public static ArrayList<Teacher> getAbsentTeachers() {
+		return absentTeachers;
+	}
+
+	public static void AbsenceReader(String fileName) throws IOException, InvalidFormatException {
+
+		Workbook workbook = WorkbookFactory.create(new File(fileName));
+		        
+		Sheet sheet = workbook.getSheetAt(0);
+		       
+		Iterator<Row> rowIterator = sheet.rowIterator();
+		    
+		DataFormatter dataFormatter = new DataFormatter();
+		        
+		while (rowIterator.hasNext()) {
+		    	
+			Row row = rowIterator.next();
+		    	
+		    Iterator<Cell> cellIterator = row.cellIterator();
+		    	
+		    Cell cell = cellIterator.next();
+		    	
+		    name = dataFormatter.formatCellValue(cell);
+		    	
+		    Teacher newTeacher = new Teacher(name);
+		    
+		    for(int i=0;i<5;i++) {
+		    	
+		    	cell = cellIterator.next();
+			    
+			    schedule[i] = dataFormatter.formatCellValue(cell);
+			    
+		    }
+		    
+		    newTeacher.setSchedule(schedule);
+		    
+		    absentTeachers.add(newTeacher);
+		    
+	        cell = cellIterator.next();
+	        
+	        subName = dataFormatter.formatCellValue(cell);
+	        
+	        if(subName == "OC") {
+	        	
+	        	Assignment a = new Assignment(newTeacher, schedule); 
+	        	ocAssignments.add(a);
+	        }
+	        
+	        else {
+	        	
+	        	Assignment b = new Assignment(newTeacher, subName, schedule);
+	        	supplyAssignments.add(b);
+	        }
+		}
+		        
+	}
+		    
+}
