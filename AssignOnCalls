@@ -5,6 +5,7 @@ public class AssignOnCalls {
 	
 	private static String[] substitutes = new String [5];
 	private static ArrayList<Assignment> assignments;
+	private static ArrayList<Teacher> todaysOncalls;
 	
 	public static void assignOncalls(ArrayList<Teacher>[] teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
@@ -35,6 +36,8 @@ public class AssignOnCalls {
 	    			while(l.hasNext()) {
 	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.next().getWeeklyOncalls()<weeklyMax)) {
 	    					substitutes[i] = l.next().getName();
+	    					todaysOncalls.add(l.next());
+	    					l.remove();
 	    				}
 	    				l.next();
 	    			}
@@ -46,3 +49,6 @@ public class AssignOnCalls {
 	    }
 	}
 }
+
+
+
