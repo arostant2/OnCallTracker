@@ -29,6 +29,8 @@ public class OnCallTallyReader {
 		Iterator<Row> rowIterator = sheet.rowIterator();
 		
 		Row row = sheet.getRow(1);
+		
+		 outerloop:
 
 	    while(rowIterator.hasNext()){
 	    	
@@ -53,7 +55,7 @@ public class OnCallTallyReader {
 		    			 i.next().setWeeklyOncalls(weeklyOncalls);
 		    			 i.next().setMonthlyOncalls(monthlyOncalls);
 		    			 oncallRoster.add(i.next());
-		    			 break;
+		    			 break outerloop;
 		    		 } 
 		    		 else
 		    			 i.next();
