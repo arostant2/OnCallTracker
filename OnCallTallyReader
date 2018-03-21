@@ -18,7 +18,7 @@ public class OnCallTallyReader {
 		return oncallRoster;
 	}
 	
-	public static void onCallTallyReader(ArrayList<Teacher> teacherRoster, String fileName) throws InvalidFormatException, IOException {
+	public static void onCallTallyReader(ArrayList<ArrayList<Teacher>> teacherRoster, String fileName) throws InvalidFormatException, IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
 		
@@ -38,22 +38,28 @@ public class OnCallTallyReader {
 	 	    
 	 	     teacherName = dataFormatter.formatCellValue(cell);
 	 	     
-	 	     ListIterator<Teacher> i = teacherRoster.listIterator(0);
-	    	
-	    	 do {
-	    		 if(i.next().getName() == teacherName) {
-	    			 cell = row.getCell(30);
-	    			 weeklyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
-	    			 cell = row.getCell(31);
-	    			 monthlyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
-	    			 i.next().setWeeklyOncalls(weeklyOncalls);
-	    			 i.next().setMonthlyOncalls(monthlyOncalls);
-	    			 oncallRoster.add(i.next());
-	    			 break;
-	    		 } 
-	    		 else
-	    			 i.next();
-	    	 } while (i.hasNext());
-	    }
-	 }
+	 	    ListIterator<ArrayList<Teacher>> j = teacherRoster.listIterator(0);
+	 	     
+	 	     while(j.hasNext()) {
+	 	     
+	 	     ListIterator<Teacher> i = j.next().listIterator();
+		    	
+	 	     	while (i.hasNext()) {
+		    		 if(i.next().getName() == teacherName) {
+		    			 cell = row.getCell(30);
+		    			 weeklyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
+		    			 cell = row.getCell(31);
+		    			 monthlyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
+		    			 i.next().setWeeklyOncalls(weeklyOncalls);
+		    			 i.next().setMonthlyOncalls(monthlyOncalls);
+		    			 oncallRoster.add(i.next());
+		    			 break;
+		    		 } 
+		    		 else
+		    			 i.next();
+		    	 } 
+		    	 j.next();
+	 	     }
+	    } 
+	}
 }
