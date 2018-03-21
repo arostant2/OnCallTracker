@@ -23,12 +23,8 @@ public class AssignOnCalls {
 	   	 				i.remove();
 	   	 				break;
 	   	 			}
-	   	 			else
-	   	 				j.next();
 	   	 		} while (j.hasNext());
-	   	 		i.next();
 	   	 	} while (i.hasNext());
-	   	 	m.next();
 		}while(m.hasNext()); 
 		
 		
@@ -39,19 +35,15 @@ public class AssignOnCalls {
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			while(l.hasNext()) {
 	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.next().getWeeklyOncalls()<weeklyMax)) {
-	    					substitutes[i] = l.next().getName();
+	    					substitutes[i] = l.previous().getName();
 	    					todaysOncalls.add(l.next());
 	    					l.remove();
 	    				}
-	    				l.next();
 	    			}
 	    		}
 	    	}
-	    	h.next().setSubstitutes(substitutes);
+	    	h.previous().setSubstitutes(substitutes);
 	    	assignments.add(h.next());
-	    	h.next();
 	    }
 	}
 }
-
-
