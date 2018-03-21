@@ -9,10 +9,15 @@ public class TeacherRosterInput {
 	
 	private static String name;
 	private static String[] schedule = new String[5];
-	private static ArrayList<Teacher>[] teacherByPeriod;
+	private static ArrayList<ArrayList<Teacher>> teacherByPeriod = new ArrayList<ArrayList<Teacher>>(4);
+	private static ArrayList<Teacher> period1 = new ArrayList<Teacher>();
+	private static ArrayList<Teacher> period2 = new ArrayList<Teacher>();
+	private static ArrayList<Teacher> period3 = new ArrayList<Teacher>();
+	private static ArrayList<Teacher> period4 = new ArrayList<Teacher>();
+	private static ArrayList<Teacher> period5 = new ArrayList<Teacher>();
 	private static int spare;
 	
-	public static ArrayList<Teacher>[] getTeacherByPeriod() {
+	public static ArrayList<ArrayList<Teacher>> getTeacherByPeriod() {
 		return teacherByPeriod;
 	}
 
@@ -40,22 +45,29 @@ public class TeacherRosterInput {
 			    	
 	    		cell = cellIterator.next();
 				    
-				  if (dataFormatter.formatCellValue(cell)== "Spare") {
-					  spare = i;
-	    	  }
-				  schedule[i] = dataFormatter.formatCellValue(cell);
-			  }
-			    
+				if (dataFormatter.formatCellValue(cell)== "Spare") {
+					spare = i;
+	    		}
+				schedule[i] = dataFormatter.formatCellValue(cell);
+		}
 	    	
-	        Teacher newTeacher = new Teacher(name);
-	        
-	        newTeacher.setSchedule(schedule);
-	        
-	        teacherByPeriod[spare].add(newTeacher);
-	     }
-	        
-	}
+	    	Teacher newTeacher = new Teacher(name);
+	    	
+	    	newTeacher.setSchedule(schedule);
+			    
+	    	switch(spare) {
+	    		case 0: period1.add(newTeacher);
+	    		case 1: period2.add(newTeacher);
+	    		case 2: period3.add(newTeacher);
+	    		case 3: period4.add(newTeacher);
+	    		case 4: period5.add(newTeacher);
+	    	}
+	    }
+	    teacherByPeriod.add(period1);
+	    teacherByPeriod.add(period2);
+	    teacherByPeriod.add(period3);
+	    teacherByPeriod.add(period4);
+	    teacherByPeriod.add(period5);
+	 }
 	    
 }
-
-
