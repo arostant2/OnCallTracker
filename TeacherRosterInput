@@ -49,7 +49,7 @@ public class TeacherRosterInput {
 					spare = i;
 	    		}
 				schedule[i] = dataFormatter.formatCellValue(cell);
-		}
+			}
 	    	
 	    	Teacher newTeacher = new Teacher(name);
 	    	
@@ -68,6 +68,5 @@ public class TeacherRosterInput {
 	    teacherByPeriod.add(period3);
 	    teacherByPeriod.add(period4);
 	    teacherByPeriod.add(period5);
-	 }
-	    
+	}
 }
