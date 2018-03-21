@@ -52,12 +52,10 @@ public class OnCallTallyWriter {
 	    			cell.setCellValue(monthlyOncalls);
 	    			break;
 	    		}
-	    		else
-	    			i.next();
 	    	} while (i.hasNext());
 	    }
 	    
-	    FileOutputStream fileOut = new FileOutputStream("existing-spreadsheet.xlsx");
+	    FileOutputStream fileOut = new FileOutputStream(fileName);
 	    workbook.write(fileOut);
 	    fileOut.close();
 
