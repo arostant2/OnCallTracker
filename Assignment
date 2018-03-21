@@ -12,11 +12,6 @@ public class Assignment {
 		setAbsentee(teacherIn);
 		setSchedule(scheduleIn);
 	}
-	public Assignment(Teacher teacherIn, String[] scheduleIn, String[] subsIn){
-		setAbsentee(teacherIn);
-		setSchedule(scheduleIn);
-		setSubstitutes(subsIn);
-	}
 	public String getSub() {
 		return sub;
 	}
