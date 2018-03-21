@@ -41,9 +41,12 @@ public class AssignOnCalls {
 	    				}
 	    			}
 	    		}
+	    		else
+	    			substitutes[i] = "No sub needed";
 	    	}
 	    	h.previous().setSubstitutes(substitutes);
 	    	assignments.add(h.next());
 	    }
 	}
 }
+
