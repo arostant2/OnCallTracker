@@ -7,13 +7,12 @@ public class AssignOnCalls {
 	private static ArrayList<Assignment> assignments;
 	private static ArrayList<Teacher> todaysOncalls;
 	
-	public static void assignOncalls(ArrayList<Teacher>[] teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+	public static void assignOncalls(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
-		for(int k = 0;k<5;k++) {
-		
-			ListIterator<Teacher> i = teacherRoster[k].listIterator(0);
-	    	
-	   	 	do {
+		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
+		do {
+			ListIterator<Teacher> i = m.next().listIterator(0);
+	    	do {
 	   	 		ListIterator<Teacher> j = absentTeachers.listIterator(0);
 	   	 		do {
 	   	 			if(i.next().getName() == j.next().getName()) {
@@ -25,14 +24,15 @@ public class AssignOnCalls {
 	   	 		} while (j.hasNext());
 	   	 		i.next();
 	   	 	} while (i.hasNext());
-		}
+	   	 	m.next();
+		}while(m.hasNext()); 
 		
 		
 		ListIterator<Assignment> h = needOncalls.listIterator(0);
 	    while(h.hasNext()) {
 	    	for(int i =0;i<5;i++) {
 	    		if(h.next().getSchedule()[i] == "OC") {
-	    			ListIterator<Teacher> l = teacherRoster[i].listIterator(0);
+	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			while(l.hasNext()) {
 	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.next().getWeeklyOncalls()<weeklyMax)) {
 	    					substitutes[i] = l.next().getName();
