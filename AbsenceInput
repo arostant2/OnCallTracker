@@ -13,6 +13,7 @@ public class AbsenceInput {
 	private static ArrayList<Assignment> ocAssignments;
 	private static ArrayList<Assignment> supplyAssignments;
 	private static String[] schedule = new String[5];
+	private static String[] subSchedule = new String[5];
 	
 	public static ArrayList<Assignment> getOCAssignments() {
 		return ocAssignments;
@@ -54,25 +55,32 @@ public class AbsenceInput {
 			    
 		    }
 		    
-		    newTeacher.setSchedule(schedule);
-		    
 		    absentTeachers.add(newTeacher);
 		    
-	            cell = cellIterator.next();
+		    newTeacher.setSchedule(schedule);
+		    
+	        cell = cellIterator.next();
 	        
-	            subName = dataFormatter.formatCellValue(cell);
+	        subName = dataFormatter.formatCellValue(cell);
 	        
-	            if (subName == "OC") {
+	        if (subName == "OC") {
 	        	
 	        	Assignment a = new Assignment(newTeacher, schedule); 
 	        	ocAssignments.add(a);
-	            }
+	        }
 	        
-	            else if (subName!=null) {
-	        	
+	        else if (subName!=null) {
+	        	for(int i = 0; i<5; i++) {
+	        		if(schedule[i] != null) {
+	        			subSchedule[i] = subName;
+	        		}
+	        		else
+	        			subSchedule[i] = "No sub needed";
+	        	}
 	        	Assignment b = new Assignment(newTeacher, subName, schedule);
+	        	b.setSubstitutes(subSchedule);
 	        	supplyAssignments.add(b);
-	            }
+	        }
 		}
 	}
 }
