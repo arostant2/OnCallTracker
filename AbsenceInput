@@ -18,9 +18,11 @@ public class AbsenceInput {
 	public static ArrayList<Assignment> getOCAssignments() {
 		return ocAssignments;
 	}
+	
 	public static ArrayList<Assignment> getSupplyAssignments() {
 		return supplyAssignments;
 	}
+	
 	public static ArrayList<Teacher> getAbsentTeachers() {
 		return absentTeachers;
 	}
@@ -28,39 +30,26 @@ public class AbsenceInput {
 	public static void AbsenceReader(String fileName) throws IOException, InvalidFormatException {
 
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
-		        
 		Sheet sheet = workbook.getSheetAt(0);
-		       
 		Iterator<Row> rowIterator = sheet.rowIterator();
-		    
 		DataFormatter dataFormatter = new DataFormatter();
 		        
 		while (rowIterator.hasNext()) {
 		    	
 			Row row = rowIterator.next();
-		    	
 		    Iterator<Cell> cellIterator = row.cellIterator();
-		    	
 		    Cell cell = cellIterator.next();
-		    	
 		    name = dataFormatter.formatCellValue(cell);
-		    	
 		    Teacher newTeacher = new Teacher(name);
 		    
 		    for(int i=0;i<5;i++) {
 		    	
 		    	cell = cellIterator.next();
-			    
 			    schedule[i] = dataFormatter.formatCellValue(cell);
-			    
-		    }
-		    
+			}
 		    absentTeachers.add(newTeacher);
-		    
 		    newTeacher.setSchedule(schedule);
-		    
-	        cell = cellIterator.next();
-	        
+		    cell = cellIterator.next();
 	        subName = dataFormatter.formatCellValue(cell);
 	        
 	        if (subName == "OC") {
@@ -70,11 +59,15 @@ public class AbsenceInput {
 	        }
 	        
 	        else if (subName!=null) {
+	        	
 	        	for(int i = 0; i<5; i++) {
+	        		
 	        		if(schedule[i] != null) {
+	        			
 	        			subSchedule[i] = subName;
 	        		}
 	        		else
+	        			
 	        			subSchedule[i] = "No sub needed";
 	        	}
 	        	Assignment b = new Assignment(newTeacher, schedule);
