@@ -21,11 +21,11 @@ public class Assignment {
 		substitutes = subs;
 	}
 	public String toString() {
-		output = absentee.getName() + "\nPeriod 1: " + substitutes[0] + " in room: " + schedule[0]
-				+ "\nPeriod 2: " + substitutes[1] + " in room: " + schedule[1]
-				+ "\nPeriod 3: " + substitutes[2] + " in room: " + schedule[2]
-				+ "\nPeriod 4: " + substitutes[3] + " in room: " + schedule[3]
-				+ "\nPeriod 5: " + substitutes[4] + " in room: " + schedule[4];
+		output = absentee.getName() + "\nPeriod 1: " + substitutes[0]
+				+ "\nPeriod 2: " + substitutes[1]
+				+ "\nPeriod 3: " + substitutes[2]
+				+ "\nPeriod 4: " + substitutes[3]
+				+ "\nPeriod 5: " + substitutes[4];
 		return output;
 	}
 }
