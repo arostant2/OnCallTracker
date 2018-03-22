@@ -1,4 +1,5 @@
 public class Assignment {
+	
 	private Teacher absentee;
 	private String[] absenceSchedule;
 	private String[] substitutes;
@@ -8,19 +9,25 @@ public class Assignment {
 		setAbsentee(teacherIn);
 		setSchedule(absenceScheduleIn);
 	}
+	
 	public void setAbsentee(Teacher absentee) {
 		this.absentee = absentee;
 	}
+	
 	public String[] getAbsenceSchedule() {
 		return absenceSchedule;
 	}
+	
 	public void setSchedule(String[] absenceSchedule) {
 		this.absenceSchedule = absenceSchedule;
 	}
+	
 	public void setSubstitutes(String[] subs) {
 		substitutes = subs;
 	}
+	
 	public String toString() {
+		
 		output = absentee.getName() + "\nPeriod 1: " + substitutes[0]
 				+ "\nPeriod 2: " + substitutes[1]
 				+ "\nPeriod 3: " + substitutes[2]
