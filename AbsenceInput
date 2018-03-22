@@ -77,7 +77,7 @@ public class AbsenceInput {
 	        		else
 	        			subSchedule[i] = "No sub needed";
 	        	}
-	        	Assignment b = new Assignment(newTeacher, subName, schedule);
+	        	Assignment b = new Assignment(newTeacher, schedule);
 	        	b.setSubstitutes(subSchedule);
 	        	supplyAssignments.add(b);
 	        }
