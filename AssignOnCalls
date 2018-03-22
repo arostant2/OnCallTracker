@@ -33,7 +33,7 @@ public class AssignOnCalls {
 	   	 		
 	   	 		while (j.hasNext()){
 	   	 			
-	   	 			if(i.next().getName() == j.next().getName()) {
+	   	 			if(i.next().getName().equals(j.next().getName())) {
 	   	 				
 	   	 				i.remove();
 	   	 				break;
@@ -54,7 +54,7 @@ public class AssignOnCalls {
 	    	
 	    	for(int i =0;i<5;i++) {
 	    		
-	    		if(h.next().getAbsenceSchedule()[i] == "x") {
+	    		if(h.next().getAbsenceSchedule()[i].equals("x")) {
 	    			
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			
@@ -81,5 +81,3 @@ public class AssignOnCalls {
 	    }
 	}
 }
-
-
