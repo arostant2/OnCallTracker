@@ -31,7 +31,7 @@ public class OnCallTallyReader {
 	    	row = rowIterator.next();
 	    	Cell cell = row.getCell(1);
 	 	    teacherName = dataFormatter.formatCellValue(cell);
-	 	     ListIterator<ArrayList<Teacher>> j = teacherRoster.listIterator(0);
+	 	    ListIterator<ArrayList<Teacher>> j = teacherRoster.listIterator(0);
 	 	     
 	 	    while(j.hasNext()) {
 	 	     
@@ -39,7 +39,7 @@ public class OnCallTallyReader {
 		    	
 	 	     	while (i.hasNext()) {
 	 	     		
-		    		 if(i.next().getName() == teacherName) {
+		    		 if(i.next().getName().equals(teacherName)) {
 		    			 
 		    			 cell = row.getCell(30);
 		    			 weeklyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
