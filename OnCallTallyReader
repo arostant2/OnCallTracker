@@ -24,7 +24,6 @@ public class OnCallTallyReader {
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.rowIterator();
 		Row row = sheet.getRow(1);
-		outerloop:
 
 	    while(rowIterator.hasNext()){
 	    	
@@ -32,6 +31,7 @@ public class OnCallTallyReader {
 	    	Cell cell = row.getCell(1);
 	 	    teacherName = dataFormatter.formatCellValue(cell);
 	 	    ListIterator<ArrayList<Teacher>> j = teacherRoster.listIterator(0);
+	 	    outerloop:
 	 	     
 	 	    while(j.hasNext()) {
 	 	     
