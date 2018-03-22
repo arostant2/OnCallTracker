@@ -68,16 +68,21 @@ public class AssignOnCalls {
 	    					
 	    					if(l.previous().getWeeklyOncalls()<weeklyMax) {
 	    						
-	    					substitutes[i] = l.previous().getName();
-	    					todaysOncalls.add(l.next());
+	    					substitutes[i] = l.next().getName();
+	    					todaysOncalls.add(l.previous());
 	    					l.remove();
+	    					if(i!=4)
+	    						h.previous();
 	    					break;
 	    					}
 	    					
 	    					else
-	    						
+	    						h.previous();
 	    						l.next();
 	    				}
+	    				else
+	    					
+	    					h.previous();
 	    			}
 	    		}
 	    		else
