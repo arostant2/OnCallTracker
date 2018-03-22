@@ -52,13 +52,13 @@ public class AbsenceInput {
 		    cell = cellIterator.next();
 	        subName = dataFormatter.formatCellValue(cell);
 	        
-	        if (subName == "OC") {
+	        if (subName.equals("OC")) {
 	        	
 	        	Assignment a = new Assignment(newTeacher, schedule); 
 	        	ocAssignments.add(a);
 	        }
 	        
-	        else if (subName!=null) {
+	        else {
 	        	
 	        	for(int i = 0; i<5; i++) {
 	        		
