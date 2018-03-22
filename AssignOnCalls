@@ -31,6 +31,8 @@ public class AssignOnCalls {
 	   	 				i.remove();
 	   	 				break;
 	   	 			}
+	   	 			else
+	   	 				i.previous();
 	   	 		} while (j.hasNext());
 	   	 	} while (i.hasNext());
 		}while(m.hasNext()); 
@@ -63,3 +65,5 @@ public class AssignOnCalls {
 	    }
 	}
 }
+
+
