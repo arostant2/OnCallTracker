@@ -30,31 +30,36 @@ public class OnCallTallyWriter {
 	    
 	    cell.setCellValue(currentDate+1);
 	    
-	    while (rowIterator.hasNext()) {
-	    	
-	    	row = rowIterator.next();
-	    	
-	    	cell = row.getCell(1);
-	    	
-	    	teacherName = dataFormatter.formatCellValue(cell);
-	    	
-	    	ListIterator<Teacher> i = onCallers.listIterator(0);
-	    	
-	    	do {
-	    		if(i.next().getName() == teacherName) {
-	    			cell = row.getCell(currentDate);
-	    			cell.setCellValue(1);
-	    			cell = row.getCell(30);
-	    			int weeklyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
-	    			cell.setCellValue(weeklyOncalls);
-	    			cell = row.getCell(31);
-	    			int monthlyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
-	    			cell.setCellValue(monthlyOncalls);
-	    			break;
-	    		}
-	    	} while (i.hasNext());
-	    }
+	    ListIterator<Teacher> i = onCallers.listIterator(0);
 	    
+	    while (i.hasNext()) {
+	    	
+	    	row = sheet.getRow(1);
+	    	outerloop:
+	    	while(rowIterator.hasNext()) {
+	    		row = rowIterator.next();
+	    		cell = row.getCell(1);
+		    	
+		    	teacherName = dataFormatter.formatCellValue(cell);
+		    	
+		    	if(i.next().getName() == teacherName) {
+		    		cell = row.getCell(currentDate);
+		    		cell.setCellValue(1);
+		    		cell = row.getCell(30);
+		    		int weeklyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
+		    		i.previous().setWeeklyOncalls(weeklyOncalls);
+		    		cell.setCellValue(weeklyOncalls);
+		    		cell = row.getCell(31);
+		    		int monthlyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
+		    		i.next().setMonthlyOncalls(monthlyOncalls);
+		    		cell.setCellValue(monthlyOncalls);
+		    		break outerloop;
+		    	}
+		    	else
+		    		i.previous();
+		    } 
+	    }
+	 	
 	    FileOutputStream fileOut = new FileOutputStream(fileName);
 	    workbook.write(fileOut);
 	    fileOut.close();
