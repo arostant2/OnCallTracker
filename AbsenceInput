@@ -52,28 +52,32 @@ public class AbsenceInput {
 		    cell = cellIterator.next();
 	        subName = dataFormatter.formatCellValue(cell);
 	        
-	        if (subName.equals("OC")) {
-	        	
-	        	Assignment a = new Assignment(newTeacher, schedule); 
-	        	ocAssignments.add(a);
-	        }
-	        
-	        else {
-	        	
-	        	for(int i = 0; i<5; i++) {
-	        		
-	        		if(schedule[i] != null) {
-	        			
-	        			subSchedule[i] = subName;
-	        		}
-	        		else
-	        			
-	        			subSchedule[i] = "No sub needed";
-	        	}
-	        	Assignment b = new Assignment(newTeacher, schedule);
-	        	b.setSubstitutes(subSchedule);
-	        	supplyAssignments.add(b);
-	        }
+	        absenceAssigner(subName, newTeacher, schedule);
 		}
+	}
+
+	public static void absenceAssigner(String subNameIn, Teacher newTeacherIn, String[] scheduleIn) {
+		if (subNameIn.equals("OC")) {
+        	
+        	Assignment a = new Assignment(newTeacherIn, scheduleIn); 
+        	ocAssignments.add(a);
+        }
+        
+        else {
+        	
+        	for(int i = 0; i<5; i++) {
+        		
+        		if(scheduleIn[i].equals("x")) {
+        			
+        			subSchedule[i] = subName;
+        		}
+        		else
+        			
+        			subSchedule[i] = "No sub needed";
+        	}
+        	Assignment b = new Assignment(newTeacherIn, scheduleIn);
+        	b.setSubstitutes(subSchedule);
+        	supplyAssignments.add(b);
+        }
 	}
 }
