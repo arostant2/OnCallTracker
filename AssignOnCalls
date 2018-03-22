@@ -38,7 +38,11 @@ public class AssignOnCalls {
 	 			while (i.hasNext()){
 	    		
 	 				if(i.next().getName().equals(j.next().getName())) {
-	   	 				
+						j.previous(); i.previous()
+	   	 				String[] schedule = j.next().getSchedule();
+						schedule[i.next().getSpare()] = "Spare";
+						j.previous();
+						j.next().setSchedule(schedule);
 	 					i.remove();
 	 					break outerloop;
 	 					}
