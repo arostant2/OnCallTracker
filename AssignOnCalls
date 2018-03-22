@@ -25,28 +25,28 @@ public class AssignOnCalls {
 	
 	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers) {
 		
-		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
+		ListIterator<Teacher> j = absentTeachers.listIterator(0);
+	 		
+	 	while (j.hasNext()){
 		
-		while(m.hasNext()) {
+	 		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
+	 		outerloop:
+	 		while(m.hasNext()) {
 			
-			ListIterator<Teacher> i = m.next().listIterator(0);
+	 			ListIterator<Teacher> i = m.next().listIterator(0);
 			
-			 while (i.hasNext()){
+	 			while (i.hasNext()){
 	    		
-	   	 		ListIterator<Teacher> j = absentTeachers.listIterator(0);
-	   	 		
-	   	 		while (j.hasNext()){
-	   	 			
-	   	 			if(i.next().getName().equals(j.next().getName())) {
+	 				if(i.next().getName().equals(j.next().getName())) {
 	   	 				
-	   	 				i.remove();
-	   	 				break;
-	   	 			}
-	   	 			else
-	   	 				
-	   	 				i.previous();
-	   	 		} 
-	   	 	}
+	 					i.remove();
+	 					break outerloop;
+	 					}
+	 				else
+	 					
+	 					j.previous();
+	 			} 
+	 		}
 		} 
 		return teacherRoster;
 	}
@@ -80,16 +80,14 @@ public class AssignOnCalls {
 	    						l.next();
 	    				}
 	    			}
-	    			if(i<4)
-	    				
-	    				h.previous();
 	    		}
 	    		else {
+	    			
 	    			substitutes[i] = "No sub needed";
-	    			if(i<4)
-	    				
-	    				h.previous();
 	    		}	
+	    		if(i<4)
+    				
+    				h.previous();
 	    	}
 	    	h.previous().setSubstitutes(substitutes);
 	    	assignments.add(h.next());
