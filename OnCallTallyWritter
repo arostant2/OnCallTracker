@@ -34,7 +34,7 @@ public class OnCallTallyWriter {
 	    		cell = row.getCell(1);
 		    	teacherName = dataFormatter.formatCellValue(cell);
 		    	
-		    	if(i.next().getName() == teacherName) {
+		    	if(i.next().getName().equals(teacherName)) {
 		    		
 		    		cell = row.getCell(currentDate);
 		    		cell.setCellValue(1);
