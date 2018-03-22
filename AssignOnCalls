@@ -22,42 +22,58 @@ public class AssignOnCalls {
 	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers) {
 		
 		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
-		do {
+		
+		while(m.hasNext()) {
+			
 			ListIterator<Teacher> i = m.next().listIterator(0);
-	    	do {
+			
+			 while (i.hasNext()){
+	    		
 	   	 		ListIterator<Teacher> j = absentTeachers.listIterator(0);
-	   	 		do {
+	   	 		
+	   	 		while (j.hasNext()){
+	   	 			
 	   	 			if(i.next().getName() == j.next().getName()) {
+	   	 				
 	   	 				i.remove();
 	   	 				break;
 	   	 			}
 	   	 			else
 	   	 				i.previous();
-	   	 		} while (j.hasNext());
-	   	 	} while (i.hasNext());
-		}while(m.hasNext()); 
+	   	 		} 
+	   	 	}
+		} 
 		return teacherRoster;
 	}
 	
 	public static void onCallAssignment(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
 		ListIterator<Assignment> h = needOncalls.listIterator(0);
+		
 	    while(h.hasNext()) {
+	    	
 	    	for(int i =0;i<5;i++) {
+	    		
 	    		if(h.next().getAbsenceSchedule()[i] == "x") {
+	    			
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
+	    			
 	    			while(l.hasNext()) {
+	    				
 	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.previous().getWeeklyOncalls()<weeklyMax)) {
+	    					
 	    					substitutes[i] = l.previous().getName();
 	    					todaysOncalls.add(l.next());
 	    					l.remove();
 	    					break;
 	    				}
 	    				else
+	    					
 	    					l.next();
 	    			}
 	    		}
 	    		else
+	    			
 	    			substitutes[i] = "No sub needed";
 	    	}
 	    	h.previous().setSubstitutes(substitutes);
