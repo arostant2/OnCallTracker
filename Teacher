@@ -4,6 +4,7 @@ public class Teacher {
 	private String[] schedule = new String[5];
 	private int weeklyOncalls;
 	private int monthlyOncalls;
+	private int spare;
 	
 	public Teacher(String nameIn) {
 		name = nameIn;
@@ -37,5 +38,11 @@ public class Teacher {
 	
 	public int getMonthlyOncalls() {
 		return monthlyOncalls;
+	}
+	public void setSpare(int i) {
+		spare = i;
+	}
+	public int getSpare() {
+		return spare;
 	}
 }
