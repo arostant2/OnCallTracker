@@ -11,7 +11,7 @@ public class OnCallTallyWriter {
 	
 	private static String teacherName;
 	
-	public static void onCallTallyWriter(ArrayList<Teacher> onCallers, String fileName) throws InvalidFormatException, IOException {
+	public static void oncallTallyWriter(ArrayList<Teacher> onCallers, String fileName) throws InvalidFormatException, IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
 	    Workbook workbook = WorkbookFactory.create(new File(fileName));
