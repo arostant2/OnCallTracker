@@ -47,6 +47,7 @@ public class TeacherRosterInput {
 			}
 	    	Teacher newTeacher = new Teacher(name);
 	    	newTeacher.setSchedule(schedule);
+		newTeacher.setSpare(spare);
 			    
 	    	switch(spare) {
 	    	
