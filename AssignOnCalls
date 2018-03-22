@@ -49,6 +49,7 @@ public class AssignOnCalls {
 	    					substitutes[i] = l.previous().getName();
 	    					todaysOncalls.add(l.next());
 	    					l.remove();
+						break;
 	    				}
 	    			}
 	    		}
