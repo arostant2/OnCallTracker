@@ -1,21 +1,21 @@
 public class Assignment {
 	private Teacher absentee;
-	private String[] schedule;
+	private String[] absenceSchedule;
 	private String[] substitutes;
 	private String output;
 	
-	public Assignment(Teacher teacherIn, String[] scheduleIn) {
+	public Assignment(Teacher teacherIn, String[] absenceScheduleIn) {
 		setAbsentee(teacherIn);
-		setSchedule(scheduleIn);
+		setSchedule(absenceScheduleIn);
 	}
 	public void setAbsentee(Teacher absentee) {
 		this.absentee = absentee;
 	}
-	public String[] getSchedule() {
-		return schedule;
+	public String[] getAbsenceSchedule() {
+		return absenceSchedule;
 	}
-	public void setSchedule(String[] schedule) {
-		this.schedule = schedule;
+	public void setSchedule(String[] absenceSchedule) {
+		this.absenceSchedule = absenceSchedule;
 	}
 	public void setSubstitutes(String[] subs) {
 		substitutes = subs;
