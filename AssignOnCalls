@@ -60,16 +60,20 @@ public class AssignOnCalls {
 	    			
 	    			while(l.hasNext()) {
 	    				
-	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.previous().getWeeklyOncalls()<weeklyMax)) {
+	    				if((l.next().getMonthlyOncalls()<monthlyMax))  {
 	    					
+	    					if(l.previous().getWeeklyOncalls()<weeklyMax) {
+	    						
 	    					substitutes[i] = l.previous().getName();
 	    					todaysOncalls.add(l.next());
 	    					l.remove();
 	    					break;
-	    				}
-	    				else
+	    					}
 	    					
-	    					l.next();
+	    					else
+	    						
+	    						l.next();
+	    				}
 	    			}
 	    		}
 	    		else
