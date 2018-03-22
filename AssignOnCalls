@@ -43,6 +43,7 @@ public class AssignOnCalls {
 	   	 				break;
 	   	 			}
 	   	 			else
+	   	 				
 	   	 				i.previous();
 	   	 		} 
 	   	 	}
@@ -71,23 +72,24 @@ public class AssignOnCalls {
 	    					substitutes[i] = l.next().getName();
 	    					todaysOncalls.add(l.previous());
 	    					l.remove();
-	    					if(i!=4)
-	    						h.previous();
 	    					break;
 	    					}
 	    					
 	    					else
-	    						h.previous();
+	    						
 	    						l.next();
 	    				}
-	    				else
-	    					
-	    					h.previous();
 	    			}
+	    			if(i<4)
+	    				
+	    				h.previous();
 	    		}
-	    		else
-	    			
+	    		else {
 	    			substitutes[i] = "No sub needed";
+	    			if(i<4)
+	    				
+	    				h.previous();
+	    		}	
 	    	}
 	    	h.previous().setSubstitutes(substitutes);
 	    	assignments.add(h.next());
