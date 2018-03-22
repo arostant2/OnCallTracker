@@ -14,12 +14,12 @@ public class AssignOnCalls {
 	
 	public static void assignOncalls(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
-		newTeacherRoster = takeOutAbsentTeachers(teacherRoster, absentTeachers, needOncalls, monthlyMax, weeklyMax);
+		newTeacherRoster = takeOutAbsentTeachers(teacherRoster, absentTeachers);
 		onCallAssignment(newTeacherRoster, needOncalls, monthlyMax, weeklyMax);
 	
 	}
 	
-	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers) {
 		
 		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
 		do {
@@ -60,3 +60,5 @@ public class AssignOnCalls {
 	    }
 	}
 }
+
+
