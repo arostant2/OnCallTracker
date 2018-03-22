@@ -1,26 +1,12 @@
 public class Assignment {
 	private Teacher absentee;
-	private String sub;
 	private String[] schedule;
 	private String[] substitutes;
 	private String output;
-	public Assignment(Teacher teacherIn, String subIn, String[] scheduleIn) {
-		setAbsentee(teacherIn);
-		setSub(subIn);
-		setSchedule(scheduleIn);
-	}
+	
 	public Assignment(Teacher teacherIn, String[] scheduleIn) {
 		setAbsentee(teacherIn);
 		setSchedule(scheduleIn);
-	}
-	public String getSub() {
-		return sub;
-	}
-	public void setSub(String sub) {
-		this.sub = sub;
-	}
-	public Teacher getAbsentee() {
-		return absentee;
 	}
 	public void setAbsentee(Teacher absentee) {
 		this.absentee = absentee;
@@ -33,9 +19,6 @@ public class Assignment {
 	}
 	public void setSubstitutes(String[] subs) {
 		substitutes = subs;
-	}
-	public String[] getSubstitutes() {
-		return substitutes;
 	}
 	public String toString() {
 		output = absentee.getName() + "\nPeriod 1: " + substitutes[0] + " in room: " + schedule[0]
