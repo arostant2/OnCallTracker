@@ -17,7 +17,7 @@ public class OnCallTallyReader {
 		return oncallRoster;
 	}
 	
-	public static void onCallTallyReader(ArrayList<ArrayList<Teacher>> teacherRoster, String fileName) throws InvalidFormatException, IOException {
+	public static void oncallTallyReader(ArrayList<ArrayList<Teacher>> teacherRoster, String fileName) throws InvalidFormatException, IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
