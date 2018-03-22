@@ -42,7 +42,7 @@ public class AssignOnCalls {
 		ListIterator<Assignment> h = needOncalls.listIterator(0);
 	    while(h.hasNext()) {
 	    	for(int i =0;i<5;i++) {
-	    		if(h.next().getSchedule()[i] == "x") {
+	    		if(h.next().getAbsenceSchedule()[i] == "x") {
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			while(l.hasNext()) {
 	    				if((l.next().getMonthlyOncalls()<monthlyMax) && (l.next().getWeeklyOncalls()<weeklyMax)) {
@@ -60,5 +60,3 @@ public class AssignOnCalls {
 	    }
 	}
 }
-
-
