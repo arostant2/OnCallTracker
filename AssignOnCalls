@@ -6,6 +6,7 @@ public class AssignOnCalls {
 	private static String[] substitutes = new String [5];
 	private static ArrayList<Assignment> assignments;
 	private static ArrayList<Teacher> todaysOncalls;
+	private static ArrayList<ArrayList<Teacher>> newTeacherRoster;
 	
 	public static ArrayList<Assignment> getAssignments() {
 		return assignments;
@@ -13,11 +14,12 @@ public class AssignOnCalls {
 	
 	public static void assignOncalls(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
-		takeOutAbsentTeachers(teacherRoster, absentTeachers, needOncalls, monthlyMax, weeklyMax);
-		
+		newTeacherRoster = takeOutAbsentTeachers(teacherRoster, absentTeachers, needOncalls, monthlyMax, weeklyMax);
+		onCallAssignment(newTeacherRoster, needOncalls, monthlyMax, weeklyMax);
+	
 	}
 	
-	public static void takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
 		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
 		do {
@@ -32,8 +34,7 @@ public class AssignOnCalls {
 	   	 		} while (j.hasNext());
 	   	 	} while (i.hasNext());
 		}while(m.hasNext()); 
-		
-		onCallAssignment(teacherRoster, needOncalls, monthlyMax, weeklyMax);
+		return teacherRoster;
 	}
 	
 	public static void onCallAssignment(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
