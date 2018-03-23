@@ -63,20 +63,18 @@ public class AssignOnCalls {
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			
 	    			while(l.hasNext()) {
-	    				
-	    				if((l.next().getMonthlyOncalls()<monthlyMax))  {
-	    					
-	    					if(l.previous().getWeeklyOncalls()<weeklyMax) {
+				
+	    				Teacher current = l.next;
+					
+	    				if((current.getMonthlyOncalls()<monthlyMax))  {	    					
+	    					if(current.getWeeklyOncalls()<weeklyMax) {
 	    						
-	    					substitutes[i] = l.next().getName();
-	    					todaysOncalls.add(l.previous());
-	    					l.remove();
+	    					substitutes[i] = current.getName();
+	    					todaysOncalls.add(current);
+	    					l.remove(); //I don't know the purpose of this but I kept it in case I'm missing something
 	    					break;
+						
 	    					}
-	    					
-	    					else
-	    						
-	    						l.next();
 	    				}
 	    			}
 	    		}
