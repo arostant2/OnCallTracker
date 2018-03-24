@@ -15,7 +15,7 @@ public class Driver {
 			TeacherRosterInput.rosterReader("teachroster.xlsx");
 			ArrayList<ArrayList<Teacher>> teacherRoster = TeacherRosterInput.getTeacherByPeriod();
 			AbsenceInput.AbsenceReader("absences.xlsx", teacherRoster);
-			ArrayList<Teacher> absentTeachers = AbsenceInput.getAbsentTeachers();
+			ArrayList<String> absentTeachers = AbsenceInput.getAbsentTeachers();
 			ArrayList<Assignment> ocAssignments = AbsenceInput.getOCAssignments();
 			ArrayList<Assignment> supplyAssignments = AbsenceInput.getSupplyAssignments();
 			OnCallTallyReader.oncallTallyReader("oncallTally.xlsx", teacherRoster);
