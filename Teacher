@@ -1,16 +1,25 @@
+package OnCallTracker;
+
 public class Teacher {
 	
 	private String name;
 	private String[] schedule = new String[5];
+	private int spare;
 	private int weeklyOncalls;
 	private int monthlyOncalls;
 	
-	public Teacher(String nameIn) {
-		name = nameIn;
+	public Teacher(String nameIn, String[] scheduleIn, int spareIn) {
+		setName(nameIn);
+		setSchedule(scheduleIn);
+		setSpare(spareIn);
 		weeklyOncalls = 0;
 		monthlyOncalls = 0;
 	}
 	
+	private void setName(String nameIn) {
+		this.name = nameIn;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -20,11 +29,11 @@ public class Teacher {
 	}
 	
 	public void setSchedule(String[] newSchedule) {
-		schedule = newSchedule;
+		this.schedule = newSchedule;
 	}
 	
 	public void setWeeklyOncalls(int newWeeklyOncalls) {
-		weeklyOncalls = newWeeklyOncalls;
+		this.weeklyOncalls = newWeeklyOncalls;
 	}
 	
 	public int getWeeklyOncalls() {
@@ -32,10 +41,18 @@ public class Teacher {
 	}
 	
 	public void setMonthlyOncalls(int newMonthlyOncalls) {
-		monthlyOncalls = newMonthlyOncalls;
+		this.monthlyOncalls = newMonthlyOncalls;
 	}
 	
 	public int getMonthlyOncalls() {
 		return monthlyOncalls;
+	}
+
+	public int getSpare() {
+		return spare;
+	}
+
+	public void setSpare(int spare) {
+		this.spare = spare;
 	}
 }
