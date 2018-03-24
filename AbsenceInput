@@ -1,3 +1,5 @@
+package OnCallTracker;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.io.File;
@@ -10,12 +12,11 @@ public class AbsenceInput {
 	
 	private static String subName;
 	private static String name;
-	private static ArrayList<Teacher> absentTeachers;
 	private static ArrayList<Assignment> ocAssignments;
 	private static ArrayList<Assignment> supplyAssignments;
 	private static String[] schedule = new String[5];
 	private static String[] subSchedule = new String[5];
-	
+	private static ArrayList<String> absentTeacherList;
 	public static ArrayList<Assignment> getOCAssignments() {
 		return ocAssignments;
 	}
@@ -24,8 +25,8 @@ public class AbsenceInput {
 		return supplyAssignments;
 	}
 	
-	public static ArrayList<Teacher> getAbsentTeachers() {
-		return absentTeachers;
+	public static ArrayList<String> getAbsentTeachers() {
+		return absentTeacherList;
 	}
 
 	public static void AbsenceReader(String fileName, ArrayList<ArrayList<Teacher>> teacherRoster) throws IOException, InvalidFormatException {
@@ -41,17 +42,16 @@ public class AbsenceInput {
 		    Iterator<Cell> cellIterator = row.cellIterator();
 		    Cell cell = cellIterator.next();
 		    name = dataFormatter.formatCellValue(cell);
-		    Teacher newTeacher = new Teacher(name);
-		    
+		    absentTeacherList.add(name);
 		    for(int i=0;i<5;i++) {
 		    	
 		    	cell = cellIterator.next();
 			    schedule[i] = dataFormatter.formatCellValue(cell);
-			}
-		    absentTeachers.add(newTeacher);
+		    }
 		    cell = cellIterator.next();
-	        subName = dataFormatter.formatCellValue(cell);
+		    subName = dataFormatter.formatCellValue(cell);
 		    ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
+		    Teacher newTeacher = null;
 		    
 		    while(g.hasNext()) {
 		    	
@@ -62,8 +62,10 @@ public class AbsenceInput {
 		        	
 		        	Teacher temp2 = t.next();
 		        	if(name.equals(temp2.getName())) {
-		        		
-		        		newTeacher.setSchedule(temp2.getSchedule());
+		        		String[] sched = temp2.getSchedule();
+		        		int spare = temp2.getSpare();
+		        		schedule[spare] = "o";
+		        		newTeacher = new Teacher(name, sched, spare);
 		        		break;
 		        	}
 		        }
