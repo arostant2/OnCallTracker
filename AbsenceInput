@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class AbsenceInput {
 	
@@ -27,7 +28,7 @@ public class AbsenceInput {
 		return absentTeachers;
 	}
 
-	public static void AbsenceReader(String fileName) throws IOException, InvalidFormatException {
+	public static void AbsenceReader(String fileName, ArrayList<ArrayList<Teacher>> teacherRoster) throws IOException, InvalidFormatException {
 
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
 		Sheet sheet = workbook.getSheetAt(0);
@@ -48,10 +49,25 @@ public class AbsenceInput {
 			    schedule[i] = dataFormatter.formatCellValue(cell);
 			}
 		    absentTeachers.add(newTeacher);
-		    newTeacher.setSchedule(schedule);
 		    cell = cellIterator.next();
 	        subName = dataFormatter.formatCellValue(cell);
-	        
+		    ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
+		    
+		    while(g.hasNext()) {
+		    	
+		        ArrayList<Teacher> temp1 = g.next();
+		        ListIterator<Teacher> t = temp1.listIterator();
+		        
+		        while(t.hasNext()) {
+		        	
+		        	Teacher temp2 = t.next();
+		        	if(name.equals(temp2.getName())) {
+		        		
+		        		newTeacher.setSchedule(temp2.getSchedule());
+		        		break;
+		        	}
+		        }
+	        }
 	        absenceAssigner(subName, newTeacher, schedule);
 		}
 	}
