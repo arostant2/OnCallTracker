@@ -3,6 +3,9 @@ package OnCallTracker;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+/**
+* Class that holds assignment algorithm for finding teachers capable of covering a period
+*/
 public class AssignOnCalls {
 	
 	private static String[] substitutes = new String [5];
