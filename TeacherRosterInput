@@ -32,6 +32,7 @@ public class TeacherRosterInput {
 	    Iterator<Row> rowIterator = sheet.rowIterator();
 	    DataFormatter dataFormatter = new DataFormatter();
 	    
+	    rowIterator.next();  //avoiding the template row
 	    while (rowIterator.hasNext()) {
 	    	
 	    	Row row = rowIterator.next();
