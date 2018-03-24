@@ -21,7 +21,7 @@ public class TeacherRosterInput {
 		return teacherByPeriod;
 	}
 
-	public static void RosterReader(String fileName) throws IOException, InvalidFormatException {
+	public static void rosterReader(String fileName) throws IOException, InvalidFormatException {
 
 	    Workbook workbook = WorkbookFactory.create(new File(fileName));
 	    Sheet sheet = workbook.getSheetAt(0);
@@ -47,7 +47,6 @@ public class TeacherRosterInput {
 			}
 	    	Teacher newTeacher = new Teacher(name);
 	    	newTeacher.setSchedule(schedule);
-		newTeacher.setSpare(spare);
 			    
 	    	switch(spare) {
 	    	
