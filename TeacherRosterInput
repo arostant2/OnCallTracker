@@ -60,7 +60,9 @@ public class TeacherRosterInput {
 	    		case 3: period4.add(newTeacher);
 	    		case 4: period5.add(newTeacher);
 	    	}
-	    }
+		
+	    }//end of while
+	    
 	    teacherByPeriod.add(period1);
 	    teacherByPeriod.add(period2);
 	    teacherByPeriod.add(period3);
