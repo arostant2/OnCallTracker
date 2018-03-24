@@ -42,7 +42,7 @@ public class AbsenceInput {
 		        
 		while (rowIterator.hasNext()) {
 		    	
-			Row row = rowIterator.next();
+		    Row row = rowIterator.next();
 		    Iterator<Cell> cellIterator = row.cellIterator();
 		    Cell cell = cellIterator.next();
 		    name = dataFormatter.formatCellValue(cell);
@@ -50,7 +50,7 @@ public class AbsenceInput {
 		    for(int i=0;i<5;i++) {
 		    	
 		    	cell = cellIterator.next();
-			    absenceSchedule[i] = dataFormatter.formatCellValue(cell);
+			absenceSchedule[i] = dataFormatter.formatCellValue(cell);
 		    }
 		    cell = cellIterator.next();
 		    subName = dataFormatter.formatCellValue(cell);
@@ -61,7 +61,7 @@ public class AbsenceInput {
 	
 	public static void removeSpares(String name, String subName, ArrayList<ArrayList<Teacher>> teacherRoster) {
 		
-		ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
+	    ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
 	    Teacher newTeacher = null;
 	    
 	    while(g.hasNext()) {
@@ -85,7 +85,7 @@ public class AbsenceInput {
 	}
 
 	public static void absenceAssigner(String subNameIn, Teacher newTeacherIn, String[] scheduleIn) {
-		if (subNameIn.equals("OC")) {
+		if (subNameIn.equalsIgnoreCase("OC")) {
         	
         	Assignment a = new Assignment(newTeacherIn, scheduleIn); 
         	ocAssignments.add(a);
@@ -95,7 +95,7 @@ public class AbsenceInput {
         	
         	for(int i = 0; i<5; i++) {
         		
-        		if(scheduleIn[i].equals("x")) {
+        		if(scheduleIn[i].equalsIgnoreCase("x")) {
         			
         			subSchedule[i] = subName;
         		}
