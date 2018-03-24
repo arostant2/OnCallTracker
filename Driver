@@ -30,7 +30,10 @@ public class Driver {
 			}
 			OnCallTallyWriter.oncallTallyWriter("oncallTally.xlsx", todaysOncalls);
 		}
-		catch(IOException f){
+		catch(FileNotFoundException n){
+			System.out.println("A file could not be found");
+			n.printStackTrace();
+		} catch(IOException f){
 			System.out.println("Something went wrong with input or output");
 			f.printStackTrace();
 		} catch (InvalidFormatException e) {
