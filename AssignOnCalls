@@ -72,15 +72,13 @@ public class AssignOnCalls {
 	    				
 	    				Teacher temp2 = l.next();
 	    				
-	    				if((temp2.getMonthlyOncalls()<monthlyMax))  {
-	    					
-	    					if(temp2.getWeeklyOncalls()<weeklyMax) {
+	    				if((temp2.getMonthlyOncalls()<monthlyMax) && (temp2.getWeeklyOncalls()<weeklyMax))  {
 	    						
-	    						substitutes[i] = temp2.getName();
-	    						todaysOncalls.add(temp2);
-	    						l.remove();
-	    						break;
-	    					}
+	    					substitutes[i] = temp2.getName();
+	    					todaysOncalls.add(temp2);
+	    					l.remove();
+	    					break;
+	    	
 	    				}
 	    			}
 	    		}
