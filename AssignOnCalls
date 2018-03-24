@@ -68,7 +68,8 @@ public class AssignOnCalls {
 	    	for(int i =0;i<5;i++) {
 	    		
 	    		if(temp1.getAbsenceSchedule()[i].equals("x")) {
-	    			
+			
+	    			boolean subFound = false;
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			
 	    			while(l.hasNext()) {
@@ -79,11 +80,15 @@ public class AssignOnCalls {
 	    						
 	    					substitutes[i] = temp2.getName();
 	    					todaysOncalls.add(temp2);
+						subFound = true;
 	    					l.remove();
 	    					break;
 	    	
 	    				}
 	    			}
+				if(!subFound){
+					substitutes[i] = "No sub was found";
+				}
 	    		}
 	    		else {
 	    			
