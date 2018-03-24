@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+/**
+* Class for reading absence data in from a designated excel file, making absence assignments
+*/
+
 public class AbsenceInput {
 	
 	private static String subName;
