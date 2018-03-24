@@ -56,7 +56,7 @@ public class AssignOnCalls {
 	
 	public static void oncallAssignment(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
-		ListIterator<Assignment> h = needOncalls.listIterator(0);
+	    ListIterator<Assignment> h = needOncalls.listIterator(0);
 		
 	    while(h.hasNext()) {
 	    	
