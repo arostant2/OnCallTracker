@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+*Takes in teacher data from designated excel file and creates teacher objects organized by spare period
+*/
+
 public class TeacherRosterInput {
 	
 	private static String name;
