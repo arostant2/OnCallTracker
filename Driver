@@ -1,0 +1,40 @@
+package OnCallTracker;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.ListIterator;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
+public class Driver {
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			TeacherRosterInput.rosterReader("teachroster.xls");
+			ArrayList<ArrayList<Teacher>> teacherRoster = TeacherRosterInput.getTeacherByPeriod();
+			AbsenceInput.AbsenceReader("absences.xls", teacherRoster);
+			ArrayList<Teacher> absentTeachers = AbsenceInput.getAbsentTeachers();
+			ArrayList<Assignment> ocAssignments = AbsenceInput.getOCAssignments();
+			ArrayList<Assignment> supplyAssignments = AbsenceInput.getSupplyAssignments();
+			OnCallTallyReader.oncallTallyReader("oncallTally.xls", teacherRoster);
+			AssignOnCalls.assignOncalls(teacherRoster, absentTeachers, ocAssignments, 4, 2);
+			ArrayList<Assignment> substitutions = AssignOnCalls.getAssignments();
+			substitutions.addAll(supplyAssignments);
+			ListIterator<Assignment> i = substitutions.listIterator(0);
+			
+			while(i.hasNext()) {
+				Assignment temp = i.next();
+				temp.toString();
+			}
+		}
+		catch(IOException f){
+			System.out.println("Something went wrong with input or output");
+			f.printStackTrace();
+		} catch (InvalidFormatException e) {
+			System.out.println("Something went wrong with formatting");
+			e.printStackTrace();
+		}
+	}
+}
