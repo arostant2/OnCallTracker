@@ -14,7 +14,7 @@ public class Driver {
 		
 		try {
 			
-			TeacherRosterInput.rosterReader("teachroster.xlsx");
+			TeacherRosterInput.rosterReader("TeacherRoster.xlsx");
 			ArrayList<ArrayList<Teacher>> teacherRoster = TeacherRosterInput.getTeacherByPeriod();
 			AbsenceInput.AbsenceReader("absences.xlsx", teacherRoster);
 			ArrayList<String> absentTeachers = AbsenceInput.getAbsentTeachers();
