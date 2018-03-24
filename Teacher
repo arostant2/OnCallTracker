@@ -1,5 +1,7 @@
 package OnCallTracker;
-
+/**
+* Class for a Full-time teacher (not a supply)
+*/
 public class Teacher {
 	
 	private String name;
