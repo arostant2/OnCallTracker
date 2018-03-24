@@ -25,6 +25,7 @@ public class OnCallTallyWriter {
 	    
 	    while (i.hasNext()) {
 	    	
+	    	Teacher temp1 =i.next();
 	    	row = sheet.getRow(1);
 	    	outerloop:
 	    		
@@ -34,23 +35,18 @@ public class OnCallTallyWriter {
 	    		cell = row.getCell(1);
 		    	teacherName = dataFormatter.formatCellValue(cell);
 		    	
-		    	if(i.next().getName().equals(teacherName)) {
+		    	if(temp1.getName().equals(teacherName)) {
 		    		
 		    		cell = row.getCell(currentDate);
 		    		cell.setCellValue(1);
 		    		cell = row.getCell(30);
 		    		int weeklyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
-		    		i.previous().setWeeklyOncalls(weeklyOncalls);
 		    		cell.setCellValue(weeklyOncalls);
 		    		cell = row.getCell(31);
 		    		int monthlyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
-		    		i.next().setMonthlyOncalls(monthlyOncalls);
 		    		cell.setCellValue(monthlyOncalls);
 		    		break outerloop;
 		    	}
-		    	else
-		    		
-		    		i.previous();
 		    } 
 	    }
 	 	FileOutputStream fileOut = new FileOutputStream(fileName);
