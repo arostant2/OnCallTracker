@@ -35,20 +35,21 @@ public class OnCallTallyReader {
 	 	     
 	 	    while(j.hasNext()) {
 	 	     
-	 	    	ListIterator<Teacher> i = j.next().listIterator();
+	 	    	ArrayList<Teacher> temp1 = j.next();
+	 	    	ListIterator<Teacher> i = temp1.listIterator(0);
 		    	
 	 	     	while (i.hasNext()) {
 	 	     		
-		    		 if(i.next().getName().equals(teacherName)) {
+	 	     		Teacher temp2 = i.next();
+		    		 if(temp2.getName().equals(teacherName)) {
 		    			 
 		    			 cell = row.getCell(30);
 		    			 weeklyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
 		    			 cell = row.getCell(31);
 		    			 monthlyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
-		    			 i.previous().setWeeklyOncalls(weeklyOncalls);
-		    			 i.next().setMonthlyOncalls(monthlyOncalls);
-		    			 oncallRoster.add(i.previous());
-		    			 i.next();
+		    			 temp2.setWeeklyOncalls(weeklyOncalls);
+		    			 temp2.setMonthlyOncalls(monthlyOncalls);
+		    			 oncallRoster.add(temp2);
 		    			 break outerloop;
 		    		 }
 		    	 } 
