@@ -1,3 +1,7 @@
+/**
+* Assignment class which is called upon when teachers are marked absent, holding there absent schedule as well as having
+* a substitutes array holding the names of the substitutes assigned for the teacher
+*/
 public class Assignment {
 	
 	private Teacher absentee;
