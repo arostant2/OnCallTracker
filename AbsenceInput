@@ -14,7 +14,7 @@ public class AbsenceInput {
 	private static String name;
 	private static ArrayList<Assignment> ocAssignments;
 	private static ArrayList<Assignment> supplyAssignments;
-	private static String[] schedule = new String[5];
+	private static String[] absenceSchedule = new String[5];
 	private static String[] subSchedule = new String[5];
 	private static ArrayList<String> absentTeacherList;
 	public static ArrayList<Assignment> getOCAssignments() {
@@ -46,32 +46,38 @@ public class AbsenceInput {
 		    for(int i=0;i<5;i++) {
 		    	
 		    	cell = cellIterator.next();
-			    schedule[i] = dataFormatter.formatCellValue(cell);
+			    absenceSchedule[i] = dataFormatter.formatCellValue(cell);
 		    }
 		    cell = cellIterator.next();
 		    subName = dataFormatter.formatCellValue(cell);
-		    ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
-		    Teacher newTeacher = null;
 		    
-		    while(g.hasNext()) {
-		    	
-		        ArrayList<Teacher> temp1 = g.next();
-		        ListIterator<Teacher> t = temp1.listIterator();
-		        
-		        while(t.hasNext()) {
-		        	
-		        	Teacher temp2 = t.next();
-		        	if(name.equals(temp2.getName())) {
-		        		String[] sched = temp2.getSchedule();
-		        		int spare = temp2.getSpare();
-		        		schedule[spare] = "o";
-		        		newTeacher = new Teacher(name, sched, spare);
-		        		break;
-		        	}
-		        }
-	        }
-	        absenceAssigner(subName, newTeacher, schedule);
+		    removeSpares(name, subName, teacherRoster);
 		}
+	}
+	
+	public static void removeSpares(String name, String subName, ArrayList<ArrayList<Teacher>> teacherRoster) {
+		
+		ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
+	    Teacher newTeacher = null;
+	    
+	    while(g.hasNext()) {
+	    	
+	        ArrayList<Teacher> temp1 = g.next();
+	        ListIterator<Teacher> t = temp1.listIterator();
+	        
+	        while(t.hasNext()) {
+	        	
+	        	Teacher temp2 = t.next();
+	        	if(name.equals(temp2.getName())) {
+	        		String[] sched = temp2.getSchedule();
+	        		int spare = temp2.getSpare();
+	        		absenceSchedule[spare] = "o";
+	        		newTeacher = new Teacher(name, sched, spare);
+	        		break;
+	        	}
+	        }
+        }
+        absenceAssigner(subName, newTeacher, absenceSchedule);
 	}
 
 	public static void absenceAssigner(String subNameIn, Teacher newTeacherIn, String[] scheduleIn) {
