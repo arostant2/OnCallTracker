@@ -28,22 +28,24 @@ public class AssignOnCalls {
 		ListIterator<Teacher> j = absentTeachers.listIterator(0);
 	 		
 	 	while (j.hasNext()){
-		
+	 		
+	 		Teacher temp1 = j.next();
 	 		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
+	 		
 	 		outerloop:
 	 		while(m.hasNext()) {
-			
-	 			ListIterator<Teacher> i = m.next().listIterator(0);
+	 			
+	 			ArrayList<Teacher> temp2 = m.next();
+	 			ListIterator<Teacher> i = temp2.listIterator(0);
 			
 	 			while (i.hasNext()){
-	    		
-	 				if(i.next().getName().equals(j.next().getName())) {
+	 				
+	 				Teacher temp3 = i.next();
+	 				if(temp3.getName().equals(temp1.getName())) {
+	   	 				
 	 					i.remove();
 	 					break outerloop;
-	 					}
-	 				else
-	 					
-	 					j.previous();
+	 				}
 	 			} 
 	 		}
 		} 
@@ -56,24 +58,26 @@ public class AssignOnCalls {
 		
 	    while(h.hasNext()) {
 	    	
+	    	Assignment temp1 = h.next();
+	    	
 	    	for(int i =0;i<5;i++) {
 	    		
-	    		if(h.next().getAbsenceSchedule()[i].equals("x")) {
+	    		if(temp1.getAbsenceSchedule()[i].equals("x")) {
 	    			
 	    			ListIterator<Teacher> l = teacherRoster.get(i).listIterator(0);
 	    			
 	    			while(l.hasNext()) {
-				
-	    				Teacher current = l.next;
-					
-	    				if((current.getMonthlyOncalls()<monthlyMax))  {	    					
-	    					if(current.getWeeklyOncalls()<weeklyMax) {
+	    				
+	    				Teacher temp2 = l.next();
+	    				
+	    				if((temp2.getMonthlyOncalls()<monthlyMax))  {
+	    					
+	    					if(temp2.getWeeklyOncalls()<weeklyMax) {
 	    						
-	    					substitutes[i] = current.getName();
-	    					todaysOncalls.add(current);
-	    					l.remove(); //I don't know the purpose of this but I kept it in case I'm missing something
-	    					break;
-						
+	    						substitutes[i] = temp2.getName();
+	    						todaysOncalls.add(temp2);
+	    						l.remove();
+	    						break;
 	    					}
 	    				}
 	    			}
@@ -82,12 +86,9 @@ public class AssignOnCalls {
 	    			
 	    			substitutes[i] = "No sub needed";
 	    		}	
-	    		if(i<4)
-    				
-    				h.previous();
 	    	}
-	    	h.previous().setSubstitutes(substitutes);
-	    	assignments.add(h.next());
+	    	temp1.setSubstitutes(substitutes);
+	    	assignments.add(temp1);
 	    }
 	}
 }
