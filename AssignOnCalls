@@ -1,3 +1,5 @@
+package OnCallTracker;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -16,20 +18,20 @@ public class AssignOnCalls {
 		return todaysOncalls;
 	}
 	
-	public static void assignOncalls(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+	public static void assignOncalls(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<String> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
 		
 		newTeacherRoster = takeOutAbsentTeachers(teacherRoster, absentTeachers);
 		oncallAssignment(newTeacherRoster, needOncalls, monthlyMax, weeklyMax);
 	
 	}
 	
-	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<Teacher> absentTeachers) {
+	public static ArrayList<ArrayList<Teacher>> takeOutAbsentTeachers(ArrayList<ArrayList<Teacher>> teacherRoster, ArrayList<String> absentTeachers) {
 		
-		ListIterator<Teacher> j = absentTeachers.listIterator(0);
+		ListIterator<String> j = absentTeachers.listIterator(0);
 	 		
 	 	while (j.hasNext()){
 	 		
-	 		Teacher temp1 = j.next();
+	 		String temp1 = j.next();
 	 		ListIterator<ArrayList<Teacher>> m = teacherRoster.listIterator(0);
 	 		
 	 		outerloop:
@@ -41,7 +43,7 @@ public class AssignOnCalls {
 	 			while (i.hasNext()){
 	 				
 	 				Teacher temp3 = i.next();
-	 				if(temp3.getName().equals(temp1.getName())) {
+	 				if(temp3.getName().equals(temp1)) {
 	   	 				
 	 					i.remove();
 	 					break outerloop;
