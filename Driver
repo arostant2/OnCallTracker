@@ -20,7 +20,7 @@ public class Driver {
 			ArrayList<String> absentTeachers = AbsenceInput.getAbsentTeachers();
 			ArrayList<Assignment> ocAssignments = AbsenceInput.getOCAssignments();
 			ArrayList<Assignment> supplyAssignments = AbsenceInput.getSupplyAssignments();
-			OnCallTallyReader.oncallTallyReader("oncallTally.xlsx", teacherRoster);
+			OnCallTallyReader.oncallTallyReader("OnCallTally.xlsx", teacherRoster);
 			AssignOnCalls.assignOncalls(teacherRoster, absentTeachers, ocAssignments, 4, 2);
 			ArrayList<Assignment> substitutions = AssignOnCalls.getAssignments();
 			substitutions.addAll(supplyAssignments);
@@ -30,7 +30,7 @@ public class Driver {
 				Assignment temp = i.next();
 				temp.toString();
 			}
-			OnCallTallyWriter.oncallTallyWriter("oncallTally.xlsx", todaysOncalls);
+			OnCallTallyWriter.oncallTallyWriter("OnCallTally.xlsx", todaysOncalls);
 		}
 		catch(FileNotFoundException n){
 			System.out.println("A file could not be found");
