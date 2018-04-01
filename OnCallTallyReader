@@ -1,3 +1,4 @@
+ackage OnCallTracker;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.io.File;
@@ -11,48 +12,42 @@ public class OnCallTallyReader {
 	private static String teacherName;
 	private static int weeklyOncalls;
 	private static int monthlyOncalls;
-	private static ArrayList<Teacher> oncallRoster;
+	private static ArrayList<Teacher> oncallRoster = new ArrayList<Teacher>();
 	
 	public static ArrayList<Teacher> getOncallRoster(){
 		return oncallRoster;
 	}
 	
-	public static void oncallTallyReader(ArrayList<ArrayList<Teacher>> teacherRoster, String fileName) throws InvalidFormatException, IOException {
+	public static void oncallTallyReader(String fileName, ArrayList<Teacher> teacherRoster) throws InvalidFormatException, IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.rowIterator();
-		Row row = sheet.getRow(1);
+		Row row = rowIterator.next();
 
 	    while(rowIterator.hasNext()){
 	    	
 	    	row = rowIterator.next();
 	    	Cell cell = row.getCell(1);
 	 	    teacherName = dataFormatter.formatCellValue(cell);
-	 	    ListIterator<ArrayList<Teacher>> j = teacherRoster.listIterator(0);
+	 	    ListIterator<Teacher> j = teacherRoster.listIterator(0);
 	 	    outerloop:
 	 	     
 	 	    while(j.hasNext()) {
 	 	     
-	 	    	ArrayList<Teacher> temp1 = j.next();
-	 	    	ListIterator<Teacher> i = temp1.listIterator(0);
-		    	
-	 	     	while (i.hasNext()) {
-	 	     		
-	 	     		Teacher temp2 = i.next();
-		    		 if(temp2.getName().equals(teacherName)) {
-		    			 
-		    			 cell = row.getCell(30);
-		    			 weeklyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
-		    			 cell = row.getCell(31);
-		    			 monthlyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
-		    			 temp2.setWeeklyOncalls(weeklyOncalls);
-		    			 temp2.setMonthlyOncalls(monthlyOncalls);
-		    			 oncallRoster.add(temp2);
-		    			 break outerloop;
-		    		 }
-		    	 } 
+	 	    	Teacher temp1 = j.next();
+	 	    	if(temp1.getName().equals(teacherName)) {
+	    			 
+	    			 cell = row.getCell(29);
+	    			 weeklyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
+	    			 cell = row.getCell(30);
+	    			 monthlyOncalls = Integer.parseInt(dataFormatter.formatCellValue(cell));
+	    			 temp1.setWeeklyOncalls(weeklyOncalls);
+	    			 temp1.setMonthlyOncalls(monthlyOncalls);
+	    			 oncallRoster.add(temp1);
+	    			 break outerloop;
+	    		 }
 	 	     }
 	    } 
 	}
