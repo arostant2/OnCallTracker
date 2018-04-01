@@ -1,4 +1,5 @@
 package OnCallTracker;
+
 /**
 * Class for a Full-time teacher (not a supply)
 */
@@ -12,7 +13,7 @@ public class Teacher {
 	
 	public Teacher(String nameIn, String[] scheduleIn, int spareIn) {
 		setName(nameIn);
-		setSchedule(scheduleIn);
+		schedule = scheduleIn;
 		setSpare(spareIn);
 		weeklyOncalls = 0;
 		monthlyOncalls = 0;
