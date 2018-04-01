@@ -13,100 +13,102 @@ import java.util.ListIterator;
 */
 
 public class AbsenceInput {
-	
-	private static String subName;
+		
 	private static String name;
-	private static ArrayList<Assignment> ocAssignments;
-	private static ArrayList<Assignment> supplyAssignments;
+	private static ArrayList<Assignment> ocAssignments = new ArrayList<Assignment>();
+	private static ArrayList<Assignment> supplyAssignments = new ArrayList<Assignment>();
 	private static String[] absenceSchedule = new String[5];
-	private static String[] subSchedule = new String[5];
-	private static ArrayList<String> absentTeacherList;
+	private static ArrayList<String> absentTeacherList = new ArrayList<String>();
+	
 	public static ArrayList<Assignment> getOCAssignments() {
 		return ocAssignments;
 	}
-	
+		
 	public static ArrayList<Assignment> getSupplyAssignments() {
 		return supplyAssignments;
 	}
-	
+		
 	public static ArrayList<String> getAbsentTeachers() {
 		return absentTeacherList;
 	}
 
-	public static void AbsenceReader(String fileName, ArrayList<ArrayList<Teacher>> teacherRoster) throws IOException, InvalidFormatException {
+	public static void AbsenceReader(String fileName, ArrayList<Teacher> teacherRoster) throws IOException, InvalidFormatException {
 
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.rowIterator();
 		DataFormatter dataFormatter = new DataFormatter();
-		        
+			        
 		rowIterator.next();  //avoiding the template row
 		while (rowIterator.hasNext()) {
-		    	
-		    Row row = rowIterator.next();
-		    Iterator<Cell> cellIterator = row.cellIterator();
-		    Cell cell = cellIterator.next();
-		    name = dataFormatter.formatCellValue(cell);
-		    absentTeacherList.add(name);
-		    for(int i=0;i<5;i++) {
-		    	
-		    	cell = cellIterator.next();
-			absenceSchedule[i] = dataFormatter.formatCellValue(cell);
-		    }
-		    cell = cellIterator.next();
-		    subName = dataFormatter.formatCellValue(cell);
-		    
-		    removeSpares(name, subName, teacherRoster);
+			    	
+			Row row = rowIterator.next();
+			Iterator<Cell> cellIterator = row.cellIterator();
+			Cell cell = cellIterator.next();
+			name = dataFormatter.formatCellValue(cell);
+			absentTeacherList.add(name);
+			String[] absSched = new String[5];
+			
+			for(int i=0;i<=4;i++) {
+			    	
+			    cell = cellIterator.next();
+			    absenceSchedule[i] = dataFormatter.formatCellValue(cell);
+			    absSched[i] = absenceSchedule[i];
+			}
+			cell = cellIterator.next();
+			String subName = dataFormatter.formatCellValue(cell);
+			    
+			removeSpares(name, subName, teacherRoster, absSched);
+			}
 		}
-	}
-	
-	public static void removeSpares(String name, String subName, ArrayList<ArrayList<Teacher>> teacherRoster) {
 		
-	    ListIterator<ArrayList<Teacher>> g = teacherRoster.listIterator(0);
-	    Teacher newTeacher = null;
-	    
-	    while(g.hasNext()) {
-	    	
-	        ArrayList<Teacher> temp1 = g.next();
-	        ListIterator<Teacher> t = temp1.listIterator();
-	        
-	        while(t.hasNext()) {
-	        	
-	        	Teacher temp2 = t.next();
-	        	if(name.equals(temp2.getName())) {
-	        		String[] sched = temp2.getSchedule();
-	        		int spare = temp2.getSpare();
-	        		absenceSchedule[spare] = "o";
+	public static void removeSpares(String name, String subName, ArrayList<Teacher> teacherRoster, String[] absentSchedule) {
+			
+		    ListIterator<Teacher> g = teacherRoster.listIterator(0);
+		    Teacher newTeacher = null;
+		    String[] absSched = new String[5];
+		    absSched = absentSchedule;
+		    
+		    while(g.hasNext()) {
+		    	
+		        Teacher temp1 = g.next();
+		        if(name.equals(temp1.getName())) {
+	        		String[] sched = temp1.getSchedule();
+	        		int spare = temp1.getSpare();
+	        		absSched[spare] = "o";
 	        		newTeacher = new Teacher(name, sched, spare);
 	        		break;
 	        	}
+		        
 	        }
-        }
-        absenceAssigner(subName, newTeacher, absenceSchedule);
-	}
+	        absenceAssigner(subName, newTeacher, absSched);
+		}
+
 
 	public static void absenceAssigner(String subNameIn, Teacher newTeacherIn, String[] scheduleIn) {
 		if (subNameIn.equalsIgnoreCase("OC")) {
-        	
-        	Assignment a = new Assignment(newTeacherIn, scheduleIn); 
-        	ocAssignments.add(a);
-        }
-        
-        else {
-        	
-        	for(int i = 0; i<5; i++) {
-        		
-        		if(scheduleIn[i].equalsIgnoreCase("x")) {
-        			
-        			subSchedule[i] = subName;
-        		}
-        		else
-        			
-        			subSchedule[i] = "No sub needed";
-        	}
-        	Assignment b = new Assignment(newTeacherIn, scheduleIn);
-        	b.setSubstitutes(subSchedule);
-        	supplyAssignments.add(b);
-        }
+	        	
+	        Assignment a = new Assignment(newTeacherIn, scheduleIn); 
+	        ocAssignments.add(a);
+	    }
+	        
+	    else {
+	        String[] subSched = new String[5];	
+	        for(int i = 0; i<5; i++) {
+	        		
+	        	if(scheduleIn[i].equalsIgnoreCase("x")) {
+	        			
+	        		subSched[i] = subNameIn;
+	        	}
+	        	else
+	        			
+	        		subSched[i] = "No sub needed";
+	        }
+	        Assignment b = new Assignment(newTeacherIn, scheduleIn);
+	        b.setSubstitutes(subSched);
+	        supplyAssignments.add(b);
+	    }
 	}
 }
+
+
