@@ -1,3 +1,4 @@
+package OnCallTracker;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.io.File;
@@ -6,23 +7,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
-*Takes in teacher data from designated excel file and creates teacher objects organized by spare period
+*Takes in teacher data from designated excel file and creates teacher objects
 */
 
 public class TeacherRosterInput {
 	
 	private static String name;
 	private static String[] schedule = new String[5];
-	private static ArrayList<ArrayList<Teacher>> teacherByPeriod = new ArrayList<ArrayList<Teacher>>(4);
-	private static ArrayList<Teacher> period1 = new ArrayList<Teacher>();
-	private static ArrayList<Teacher> period2 = new ArrayList<Teacher>();
-	private static ArrayList<Teacher> period3 = new ArrayList<Teacher>();
-	private static ArrayList<Teacher> period4 = new ArrayList<Teacher>();
-	private static ArrayList<Teacher> period5 = new ArrayList<Teacher>();
+	private static ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
 	private static int spare;
 	
-	public static ArrayList<ArrayList<Teacher>> getTeacherByPeriod() {
-		return teacherByPeriod;
+	public static ArrayList<Teacher> getTeacherList() {
+		return teacherList;
 	}
 
 	public static void rosterReader(String fileName) throws IOException, InvalidFormatException {
@@ -39,35 +35,26 @@ public class TeacherRosterInput {
 	    	Iterator<Cell> cellIterator = row.cellIterator();
 	    	Cell cell = cellIterator.next();
 	    	name = dataFormatter.formatCellValue(cell);
+	    	String[] sched = new String[5];
 	    	
 	    	for(int i=0;i<5;i++) {
 			    	
-	    		cell = cellIterator.next();
 	    		
-				if (dataFormatter.formatCellValue(cell).equalsIgnoreCase("Spare")) {
+	    		cell = cellIterator.next();
+	    		schedule[i] = dataFormatter.formatCellValue(cell);
+	    		sched[i] = schedule[i];
+				if (schedule[i].equalsIgnoreCase("Spare")) {
 					
 					spare = i;
 	    		}
-				schedule[i] = dataFormatter.formatCellValue(cell);
+				
 			}
-	    	Teacher newTeacher = new Teacher(name);
-	    	newTeacher.setSchedule(schedule);
+	    	Teacher newTeacher = new Teacher(name, sched, spare);
 			    
-	    	switch(spare) {
-	    	
-	    		case 0: period1.add(newTeacher);
-	    		case 1: period2.add(newTeacher);
-	    		case 2: period3.add(newTeacher);
-	    		case 3: period4.add(newTeacher);
-	    		case 4: period5.add(newTeacher);
-	    	}
+	    	teacherList.add(newTeacher);
 		
 	    }//end of while
 	    
-	    teacherByPeriod.add(period1);
-	    teacherByPeriod.add(period2);
-	    teacherByPeriod.add(period3);
-	    teacherByPeriod.add(period4);
-	    teacherByPeriod.add(period5);
+	    
 	}
 }
