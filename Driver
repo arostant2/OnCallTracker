@@ -1,12 +1,13 @@
 package OnCallTracker;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 /**
-* Driver class that reads from 3 seperate excel input files to assign on-calls to absent periods
+* Driver class that reads from 3 separate excel input files to assign on-calls to absent periods
 */
 public class Driver {
 	
@@ -14,13 +15,13 @@ public class Driver {
 		
 		try {
 			
-			TeacherRosterInput.rosterReader("TeacherRoster.xlsx");
-			ArrayList<ArrayList<Teacher>> teacherRoster = TeacherRosterInput.getTeacherByPeriod();
-			AbsenceInput.AbsenceReader("TeacherAbsences.xlsx", teacherRoster);
+			TeacherRosterInput.rosterReader("C:\\Users\\paulr\\Documents\\TeacherRoster.xlsx");
+			ArrayList<Teacher> teacherRoster = TeacherRosterInput.getTeacherList();
+			AbsenceInput.AbsenceReader("C:\\Users\\paulr\\Documents\\TeacherAbsences.xlsx", teacherRoster);
 			ArrayList<String> absentTeachers = AbsenceInput.getAbsentTeachers();
 			ArrayList<Assignment> ocAssignments = AbsenceInput.getOCAssignments();
 			ArrayList<Assignment> supplyAssignments = AbsenceInput.getSupplyAssignments();
-			OnCallTallyReader.oncallTallyReader("OnCallTally.xlsx", teacherRoster);
+			OnCallTallyReader.oncallTallyReader("C:\\Users\\paulr\\Documents\\OnCallTally.xlsx", teacherRoster);
 			AssignOnCalls.assignOncalls(teacherRoster, absentTeachers, ocAssignments, 4, 2);
 			ArrayList<Assignment> substitutions = AssignOnCalls.getAssignments();
 			substitutions.addAll(supplyAssignments);
@@ -28,9 +29,8 @@ public class Driver {
 			ListIterator<Assignment> i = substitutions.listIterator(0);
 			while(i.hasNext()) {
 				Assignment temp = i.next();
-				temp.toString();
+				System.out.println(temp.toString());
 			}
-			OnCallTallyWriter.oncallTallyWriter("OnCallTally.xlsx", todaysOncalls);
 		}
 		catch(FileNotFoundException n){
 			System.out.println("A file could not be found");
