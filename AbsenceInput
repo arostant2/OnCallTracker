@@ -14,7 +14,6 @@ import java.util.ListIterator;
 
 public class AbsenceInput {
 		
-	private static String name;
 	private static ArrayList<Assignment> ocAssignments = new ArrayList<Assignment>();
 	private static ArrayList<Assignment> supplyAssignments = new ArrayList<Assignment>();
 	private static String[] absenceSchedule = new String[5];
@@ -34,6 +33,7 @@ public class AbsenceInput {
 
 	public static void AbsenceReader(String fileName, ArrayList<Teacher> teacherRoster) throws IOException, InvalidFormatException {
 
+		String name;
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.rowIterator();
@@ -110,5 +110,3 @@ public class AbsenceInput {
 	    }
 	}
 }
-
-
