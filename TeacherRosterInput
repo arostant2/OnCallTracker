@@ -12,10 +12,8 @@ import java.util.Iterator;
 
 public class TeacherRosterInput {
 	
-	private static String name;
 	private static String[] schedule = new String[5];
 	private static ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
-	private static int spare;
 	
 	public static ArrayList<Teacher> getTeacherList() {
 		return teacherList;
@@ -23,12 +21,14 @@ public class TeacherRosterInput {
 
 	public static void rosterReader(String fileName) throws IOException, InvalidFormatException {
 
+		String name;
+		int spare = -1;
 	    Workbook workbook = WorkbookFactory.create(new File(fileName));
 	    Sheet sheet = workbook.getSheetAt(0);
 	    Iterator<Row> rowIterator = sheet.rowIterator();
 	    DataFormatter dataFormatter = new DataFormatter();
-	    
 	    rowIterator.next();  //avoiding the template row
+	    
 	    while (rowIterator.hasNext()) {
 	    	
 	    	Row row = rowIterator.next();
@@ -39,7 +39,6 @@ public class TeacherRosterInput {
 	    	
 	    	for(int i=0;i<5;i++) {
 			    	
-	    		
 	    		cell = cellIterator.next();
 	    		schedule[i] = dataFormatter.formatCellValue(cell);
 	    		sched[i] = schedule[i];
@@ -50,11 +49,7 @@ public class TeacherRosterInput {
 				
 			}
 	    	Teacher newTeacher = new Teacher(name, sched, spare);
-			    
-	    	teacherList.add(newTeacher);
-		
-	    }//end of while
-	    
-	    
+			teacherList.add(newTeacher);
+		}//end of while
 	}
 }
