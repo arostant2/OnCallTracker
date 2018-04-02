@@ -1,4 +1,4 @@
-ackage OnCallTracker;
+package OnCallTracker;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.io.File;
@@ -9,9 +9,6 @@ import java.util.ListIterator;
 
 public class OnCallTallyReader {
 	
-	private static String teacherName;
-	private static int weeklyOncalls;
-	private static int monthlyOncalls;
 	private static ArrayList<Teacher> oncallRoster = new ArrayList<Teacher>();
 	
 	public static ArrayList<Teacher> getOncallRoster(){
@@ -28,8 +25,11 @@ public class OnCallTallyReader {
 
 	    while(rowIterator.hasNext()){
 	    	
+	    	int weeklyOncalls;
+	    	int monthlyOncalls;
+	    	String teacherName;
 	    	row = rowIterator.next();
-	    	Cell cell = row.getCell(1);
+	    	Cell cell = row.getCell(0);
 	 	    teacherName = dataFormatter.formatCellValue(cell);
 	 	    ListIterator<Teacher> j = teacherRoster.listIterator(0);
 	 	    outerloop:
