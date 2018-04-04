@@ -1,3 +1,5 @@
+package OnCallTracker;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.io.File;
@@ -11,14 +13,13 @@ public class OnCallTallyWriter {
 	
 	private static String teacherName;
 	
-	public static void oncallTallyWriter(ArrayList<Teacher> onCallers, String fileName) throws InvalidFormatException, IOException {
+	public static void oncallTallyWriter(String fileName, ArrayList<Teacher> onCallers) throws InvalidFormatException, IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
 	    Workbook workbook = WorkbookFactory.create(new File(fileName));
 	    Sheet sheet = workbook.getSheetAt(0);
-	    Iterator<Row> rowIterator = sheet.rowIterator();
-	    Row row = sheet.getRow(1);
-	    Cell cell = row.getCell(30);
+	    Row row = sheet.getRow(0);
+	    Cell cell = row.getCell(29);
 	    int currentDate = Integer.parseInt(dataFormatter.formatCellValue(cell));
 	    cell.setCellValue(currentDate+1);
 	    ListIterator<Teacher> i = onCallers.listIterator(0);
@@ -26,23 +27,24 @@ public class OnCallTallyWriter {
 	    while (i.hasNext()) {
 	    	
 	    	Teacher temp1 =i.next();
-	    	row = sheet.getRow(1);
+	    	Iterator<Row> rowIterator = sheet.rowIterator();
+	    	row = rowIterator.next();
 	    	outerloop:
 	    		
 	    	while(rowIterator.hasNext()) {
 	    		
 	    		row = rowIterator.next();
-	    		cell = row.getCell(1);
+	    		cell = row.getCell(0);
 		    	teacherName = dataFormatter.formatCellValue(cell);
 		    	
 		    	if(temp1.getName().equals(teacherName)) {
 		    		
 		    		cell = row.getCell(currentDate);
 		    		cell.setCellValue(1);
-		    		cell = row.getCell(30);
+		    		cell = row.getCell(29);
 		    		int weeklyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
 		    		cell.setCellValue(weeklyOncalls);
-		    		cell = row.getCell(31);
+		    		cell = row.getCell(30);
 		    		int monthlyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
 		    		cell.setCellValue(monthlyOncalls);
 		    		break outerloop;
