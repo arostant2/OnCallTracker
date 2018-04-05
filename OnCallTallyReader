@@ -15,13 +15,14 @@ public class OnCallTallyReader {
 		return oncallRoster;
 	}
 	
-	public static void oncallTallyReader(String fileName, ArrayList<Teacher> teacherRoster) throws InvalidFormatException, IOException {
+	public static void oncallTallyReader(String fileName, ArrayList<Teacher> teacherRoster) throws InvalidFormatException, IOException, NumberFormatException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
 		Workbook workbook = WorkbookFactory.create(new File(fileName));
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.rowIterator();
 		Row row = rowIterator.next();
+		Cell cell = row.getCell(0);
 
 	    while(rowIterator.hasNext()){
 	    	
@@ -29,7 +30,7 @@ public class OnCallTallyReader {
 	    	int monthlyOncalls;
 	    	String teacherName;
 	    	row = rowIterator.next();
-	    	Cell cell = row.getCell(0);
+	    	cell = row.getCell(0);
 	 	    teacherName = dataFormatter.formatCellValue(cell);
 	 	    ListIterator<Teacher> j = teacherRoster.listIterator(0);
 	 	    outerloop:
@@ -49,6 +50,7 @@ public class OnCallTallyReader {
 	    			 break outerloop;
 	    		 }
 	 	     }
-	    } 
+	    }
+	    workbook.close();
 	}
 }
