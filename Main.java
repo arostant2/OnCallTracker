@@ -1,4 +1,5 @@
 
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -29,6 +30,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.scene.control.TextArea;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -74,7 +77,7 @@ public class Main extends Application {
 
         Button backButton = new Button("Go Back");
 
-        BorderPane layout1 = new BorderPane();
+
 
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
@@ -87,7 +90,7 @@ public class Main extends Application {
         vbox.setSpacing(10);
         vbox.getChildren().addAll(label2, label3, label4, buttonOnCalls);
         AnchorPane anchorpane1 = new AnchorPane();
-        anchorpane1.getChildren().add(vbox);   // Add grid from Example 1-5
+        anchorpane1.getChildren().add(vbox);
         AnchorPane.setBottomAnchor(vbox, 8.0);
         AnchorPane.setLeftAnchor(vbox, 5.0);
 
@@ -96,9 +99,32 @@ public class Main extends Application {
         hbox2.setSpacing(10);
         hbox2.getChildren().addAll(buttonSettings, buttonExit);
         AnchorPane anchorpane2 = new AnchorPane();
-        anchorpane2.getChildren().add(hbox2);   // Add grid from Example 1-5
+        anchorpane2.getChildren().add(hbox2);
         AnchorPane.setBottomAnchor(hbox2, 8.0);
         AnchorPane.setRightAnchor(hbox2, 5.0);
+
+        Label outputText = new Label();
+        outputText.setWrapText(true);
+
+        outputText.setText("yoyoyoyoyoyoyo"); //put text here
+
+        BorderPane layout1 = new BorderPane();
+        layout1.setTop(hbox);
+        layout1.setLeft(anchorpane1);
+        layout1.setRight(anchorpane2);
+
+        BorderPane layout2 = new BorderPane();
+        layout2.setBottom(backButton);
+        layout2.setCenter(outputText);
+
+
+        mainScene = new Scene(layout1, 600, 300);
+        outputScene = new Scene(layout2, 500, 500);
+
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         button1.setOnAction(e -> {
 
@@ -147,24 +173,7 @@ public class Main extends Application {
 
         buttonExit.setOnAction(e -> Platform.exit());
 
-        layout1.setTop(hbox);
-        //layout1.setCenter(vbox);
-        layout1.setLeft(anchorpane1);
-        layout1.setRight(anchorpane2);
 
-        BorderPane layout2 = new BorderPane();
-
-        layout2.setBottom(backButton);
-
-        mainScene = new Scene(layout1, 600, 300);
-        outputScene = new Scene(layout2, 500, 500);
-
-
-      //  Scene scene2 = new Scene();
-
-
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
 
       }
 }
