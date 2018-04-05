@@ -1,0 +1,80 @@
+package OnCallTracker;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.ArrayList;
+
+public class OnCallTallyWriter {
+	
+	private static String teacherName;
+	
+	public static void oncallTallyWriter(String fileName, ArrayList<Teacher> onCallers) throws InvalidFormatException, IOException {
+		
+		InputStream ExcelFileToRead = new FileInputStream(fileName);
+		DataFormatter dataFormatter = new DataFormatter();
+	    Workbook workbook = new XSSFWorkbook(ExcelFileToRead);
+	    XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
+	    XSSFRow row = sheet.getRow(0);
+	    XSSFCell cell = row.getCell(29);
+	    int currentDate = Integer.parseInt(dataFormatter.formatCellValue(cell));
+	    cell.setCellValue(currentDate+1);
+	    ListIterator<Teacher> i = onCallers.listIterator(0);
+	    
+	    if (currentDate == 5 || currentDate == 10 ||currentDate == 15 || currentDate == 20 || currentDate == 25) {
+	    	Iterator<Row> rows= sheet.rowIterator();
+	    	row = (XSSFRow) rows.next();
+	    	while(rows.hasNext()) {
+	    		
+	    		row = (XSSFRow) rows.next();
+	    		cell = row.getCell(29);
+	    		cell.setCellValue(0);
+	    	}
+	    }
+	    
+	    while (i.hasNext()) {
+	    	
+	    	Teacher temp1 =i.next();
+	    	Iterator<Row> rows= sheet.rowIterator();
+	    	row = (XSSFRow) rows.next();
+	    	outerloop:
+	    		
+	    	while(rows.hasNext()) {
+	    		
+	    		row = (XSSFRow) rows.next();
+	    		cell = row.getCell(0);
+		    	teacherName = dataFormatter.formatCellValue(cell);
+		    	
+		    	if(temp1.getName().equals(teacherName)) {
+		    		
+		    		cell = row.getCell(currentDate);
+		    		if(cell==null) {
+		    			cell = row.createCell(currentDate);
+		    		}
+		    		cell.setCellValue(1);
+		    		cell = row.getCell(29);
+		    		int weeklyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
+			    	cell.setCellValue(weeklyOncalls);
+		    		cell = row.getCell(30);
+		    		int monthlyOncalls = 1 + Integer.parseInt(dataFormatter.formatCellValue(cell));
+		    		cell.setCellValue(monthlyOncalls);
+		    		break outerloop;
+		    	}
+		    } 
+	    }
+	 	FileOutputStream fileOut = new FileOutputStream(fileName);
+	    workbook.write(fileOut);
+	    fileOut.flush();
+	    workbook.close();
+	}
+}
