@@ -1,0 +1,61 @@
+package OnCallTracker;
+
+/**
+* Class for a Full-time teacher (not a supply)
+*/
+public class Teacher {
+	
+	private String name;
+	private String[] schedule = new String[5];
+	private int spare;
+	private int weeklyOncalls;
+	private int monthlyOncalls;
+	
+	public Teacher(String nameIn, String[] scheduleIn, int spareIn) {
+		setName(nameIn);
+		schedule = scheduleIn;
+		setSpare(spareIn);
+		weeklyOncalls = 0;
+		monthlyOncalls = 0;
+	}
+	
+	private void setName(String nameIn) {
+		this.name = nameIn;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public String[] getSchedule() {
+		return schedule;
+	}
+	
+	public void setSchedule(String[] newSchedule) {
+		this.schedule = newSchedule;
+	}
+	
+	public void setWeeklyOncalls(int newWeeklyOncalls) {
+		this.weeklyOncalls = newWeeklyOncalls;
+	}
+	
+	public int getWeeklyOncalls() {
+		return weeklyOncalls;
+	}
+	
+	public void setMonthlyOncalls(int newMonthlyOncalls) {
+		this.monthlyOncalls = newMonthlyOncalls;
+	}
+	
+	public int getMonthlyOncalls() {
+		return monthlyOncalls;
+	}
+
+	public int getSpare() {
+		return spare;
+	}
+
+	public void setSpare(int spare) {
+		this.spare = spare;
+	}
+}
