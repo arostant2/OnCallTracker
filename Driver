@@ -1,0 +1,51 @@
+package OnCallTracker;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.ListIterator;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+/**
+* Driver class that reads from 3 separate excel input files to assign on-calls to absent periods
+*/
+public class Driver {
+	
+	public static void main(String[] args) {
+		
+		try {
+			
+			TeacherRosterInput.rosterReader("/home1/ugrads/arostant/CS2043/oncalltracker/TeacherRoster.xlsx");
+			ArrayList<Teacher> teacherRoster = TeacherRosterInput.getTeacherList();
+			AbsenceInput.AbsenceReader("/home1/ugrads/arostant/CS2043/oncalltracker/TeacherAbsences.xlsx", teacherRoster);
+			ArrayList<String> absentTeachers = AbsenceInput.getAbsentTeachers();
+			ArrayList<Assignment> ocAssignments = AbsenceInput.getOCAssignments();
+			ArrayList<Assignment> supplyAssignments = AbsenceInput.getSupplyAssignments();
+			OnCallTallyReader.oncallTallyReader("/home1/ugrads/arostant/CS2043/oncalltracker/OnCallTally.xlsx", teacherRoster);
+			ArrayList<Teacher> oncallRoster = OnCallTallyReader.getOncallRoster();
+			AssignOnCalls.assignOncalls(oncallRoster, absentTeachers, ocAssignments, 4, 2);
+			ArrayList<Assignment> substitutions = AssignOnCalls.getAssignments();
+			substitutions.addAll(supplyAssignments);
+			ArrayList<Teacher> todaysOncalls = AssignOnCalls.getTodaysOncalls();
+			ListIterator<Assignment> i = substitutions.listIterator(0);
+			while(i.hasNext()) {
+				Assignment temp = i.next();
+				System.out.println(temp.toString());
+			}
+			OnCallTallyWriter.oncallTallyWriter ("/home1/ugrads/arostant/CS2043/oncalltracker/OnCallTally.xlsx", todaysOncalls);
+		}
+		catch(FileNotFoundException n){
+			System.out.println("A file could not be found");
+			n.printStackTrace();
+		} catch(IOException f){
+			System.out.println("Something went wrong with input or output");
+			f.printStackTrace();
+		} catch (InvalidFormatException e) {
+			System.out.println("Something went wrong with formatting");
+			e.printStackTrace();
+		} catch(NumberFormatException l) {
+			System.out.println("Error reading numbers");
+			l.printStackTrace();
+		}
+	}
+}
