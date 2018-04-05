@@ -60,6 +60,7 @@ public class AbsenceInput {
 			    
 			removeSpares(name, subName, teacherRoster, absSched);
 			}
+		workbook.close();
 		}
 		
 	public static void removeSpares(String name, String subName, ArrayList<Teacher> teacherRoster, String[] absentSchedule) {
