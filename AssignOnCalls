@@ -1,0 +1,99 @@
+package OnCallTracker;
+
+import java.util.ArrayList;
+import java.util.ListIterator;
+
+/**
+* Class that holds assignment algorithm for finding teachers capable of covering a period
+*/
+public class AssignOnCalls {
+	
+	private static ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+	private static ArrayList<Teacher> todaysOncalls = new ArrayList<Teacher>();
+	private static ArrayList<Teacher> newTeacherRoster = new ArrayList<Teacher>();
+	
+	public static ArrayList<Assignment> getAssignments() {
+		return assignments;
+	}
+	
+	public static ArrayList<Teacher> getTodaysOncalls(){
+		return todaysOncalls;
+	}
+	
+	public static void assignOncalls(ArrayList<Teacher> teacherRoster, ArrayList<String> absentTeachers, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+		
+		newTeacherRoster = takeOutAbsentTeachers(teacherRoster, absentTeachers);
+		oncallAssignment(newTeacherRoster, needOncalls, monthlyMax, weeklyMax);
+	
+	}
+	
+	public static ArrayList<Teacher> takeOutAbsentTeachers(ArrayList<Teacher> teacherRoster, ArrayList<String> absentTeachers) {
+		
+		ListIterator<String> j = absentTeachers.listIterator(0);
+	 		
+	 	while (j.hasNext()){
+	 		
+	 		String temp1 = j.next();
+	 		ListIterator<Teacher> m = teacherRoster.listIterator(0);
+	 		
+	 		outerloop:
+	 		while(m.hasNext()) {
+	 			
+	 			Teacher temp2 = m.next();
+	 			if(temp2.getName().equals(temp1)) {
+   	 				
+ 					m.remove();
+ 					break outerloop;
+ 				}
+	 		}
+		} 
+		return teacherRoster;
+	}
+	
+	public static void oncallAssignment(ArrayList<Teacher> teacherRoster, ArrayList<Assignment> needOncalls, int monthlyMax, int weeklyMax) {
+		
+	    ListIterator<Assignment> h = needOncalls.listIterator(0);
+		
+	    while(h.hasNext()) {
+	    	
+	    	Assignment temp1 = h.next();
+	    	
+	    	String[] absSched = temp1.getAbsenceSchedule();
+	    	String[] subSched = new String[5];
+	    	
+	    	for(int i =0;i<5;i++) {
+	    		
+	    		if(absSched[i].equals("x")) {
+			
+	    			ListIterator<Teacher> l = teacherRoster.listIterator(0);
+	    			boolean subFound = false;
+	    			
+	    			
+	    			while(l.hasNext()) {
+	    				
+	    				Teacher temp2 = l.next();
+	    				
+	    				if((temp2.getSpare() == i && temp2.getMonthlyOncalls()<monthlyMax) && (temp2.getWeeklyOncalls()<weeklyMax))  {
+	    						
+	    					subSched[i] = temp2.getName();
+	    					todaysOncalls.add(temp2);
+	    					subFound = true;
+	    					l.remove();
+	    					break;
+	    	
+	    				}
+	    			}
+	    			if(!subFound){
+	    				subSched[i] = "No sub was found";
+	    			}
+	    		}
+	    		else {
+	    			
+	    			subSched[i] = "No sub needed";
+	    		}	
+	    	}
+	    	temp1.setSubstitutes(subSched);
+	    	assignments.add(temp1);
+	    }
+	}
+}
