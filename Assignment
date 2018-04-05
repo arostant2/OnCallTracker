@@ -1,0 +1,44 @@
+package OnCallTracker;
+
+/**
+* Assignment class which is called upon when teachers are marked absent, holding there absent schedule as well as having
+* a substitutes array holding the names of the substitutes assigned for the teacher
+*/
+public class Assignment {
+	
+	private Teacher absentee;
+	private String[] absenceSchedule;
+	private String[] substitutes;
+	private String output;
+	
+	public Assignment(Teacher teacherIn, String[] absenceScheduleIn) {
+		setAbsentee(teacherIn);
+		setSchedule(absenceScheduleIn);
+	}
+	
+	public void setAbsentee(Teacher absentee) {
+		this.absentee = absentee;
+	}
+	
+	public String[] getAbsenceSchedule() {
+		return absenceSchedule;
+	}
+	
+	public void setSchedule(String[] absenceSchedule) {
+		this.absenceSchedule = absenceSchedule;
+	}
+	
+	public void setSubstitutes(String[] subs) {
+		substitutes = subs;
+	}
+	
+	public String toString() {
+		
+		output = absentee.getName() + "\nPeriod 1: " + substitutes[0] + " in room: " + absentee.getSchedule()[0]
+				+ "\nPeriod 2: " + substitutes[1] + " in room: " + absentee.getSchedule()[1]
+				+ "\nPeriod 3: " + substitutes[2] + " in room: " + absentee.getSchedule()[2]
+				+ "\nPeriod 4: " + substitutes[3] + " in room: " + absentee.getSchedule()[3]
+				+ "\nPeriod 5: " + substitutes[4] + " in room: " + absentee.getSchedule()[4];
+		return output;
+	}
+}
