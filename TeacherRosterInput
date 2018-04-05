@@ -51,5 +51,6 @@ public class TeacherRosterInput {
 	    	Teacher newTeacher = new Teacher(name, sched, spare);
 			teacherList.add(newTeacher);
 		}//end of while
+	    workbook.close();
 	}
 }
